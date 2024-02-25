@@ -1,6 +1,6 @@
 import { test, expect, request } from "@playwright/test";
 
-test("Customize product and add to the basket", async ({ request }) => {
+test("GET Request check product status", async ({ request }) => {
   const restApiUrl: string = "https://qa7-restapi.solutions4delivery.com";
   const activeProductId: number = 15;
   const inactiveProductId: number = 170;

@@ -44,6 +44,9 @@ test("Select store in delivery option", async ({ page }) => {
     infoBannertext
   );
   await page.getByTestId("drawer-footer-primary-btn").click();
+  await page.waitForRequest(
+    "https://qa7-api.solutions4delivery.com/localization-api/api/v2/stores/available-hours*"
+  );
   await expect(
     page.getByTestId("top-locator-selected-location-dropdown-title").first()
   ).toHaveText(addressStreet);

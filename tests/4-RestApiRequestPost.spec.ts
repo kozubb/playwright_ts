@@ -1,6 +1,6 @@
 import { test, expect, request } from "@playwright/test";
 
-test("Customize product and add to the basket", async ({ request }) => {
+test("POST Request email status", async ({ request }) => {
   const restApiUrl: string = "https://qa7-restapi.solutions4delivery.com";
   const existedEmailPayload: { emailAddress: string } = {
     emailAddress: "qa+TA_qa7no_saved_address@solutions4delivery.com",

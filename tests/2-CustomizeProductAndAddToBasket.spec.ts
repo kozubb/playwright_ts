@@ -16,6 +16,8 @@ test("Customize product and add to the basket", async ({ page }) => {
   const selectedTopings: any = page.getByTestId("chip-text");
   const newPizzaOption: string = "Thick - Medium (11.5 inch) ";
   const newPizzaPrice: string = "17.75";
+  const buttonLocator: any = page.getByTestId("pdp-back-btn");
+  const buttonLocatorV2: any = page.getByTestId("pdp-back-btn-v2");
 
   await page.goto(endpoint);
   await page.locator(".s4d-close-cookie").click();
@@ -29,7 +31,9 @@ test("Customize product and add to the basket", async ({ page }) => {
   await expect(page.getByTestId("product-subtitle")).toHaveText(
     defaultPizzaOption
   );
-  await expect(page.getByTestId("pdp-price")).toHaveText(defaultPizzaPrice);
+  await expect(page.getByTestId("pdp-price").first()).toHaveText(
+    defaultPizzaPrice
+  );
   await page.getByTestId("base-thick-btn").click();
   await page.getByTestId("size-medium115inch-selected").click();
   await page.getByTestId("sauce-bbqsauce-container").click();
@@ -43,8 +47,12 @@ test("Customize product and add to the basket", async ({ page }) => {
     await expect(selectedTopings.nth(i)).toHaveText(toppingName[i]);
   }
   await expect(page.getByTestId("product-subtitle")).toHaveText(newPizzaOption);
-  await expect(page.getByTestId("pdp-price")).toHaveText(newPizzaPrice);
-  await page.getByTestId("pdp-btn-buy-content").click();
-  await expect(page.getByTestId("pdp-price")).toHaveText(defaultPizzaPrice);
-  await page.getByTestId("pdp-back-btn").click();
+  await expect(page.getByTestId("pdp-price").first()).toHaveText(newPizzaPrice);
+  await page.getByTestId("pdp-btn-buy-content").first().click();
+  await expect(page.getByTestId("pdp-price").first()).toHaveText(
+    defaultPizzaPrice
+  );
+  (await buttonLocator.exists)
+    ? buttonLocator.click()
+    : await buttonLocatorV2.click();
 });
