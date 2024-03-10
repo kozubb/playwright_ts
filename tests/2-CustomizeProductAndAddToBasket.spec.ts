@@ -52,7 +52,7 @@ test("Customize product and add to the basket", async ({ page }) => {
   await expect(page.getByTestId("pdp-price").first()).toHaveText(
     defaultPizzaPrice
   );
-  (await buttonLocator.exists)
-    ? buttonLocator.click()
+  (await buttonLocator.isVisible())
+    ? await buttonLocator.click()
     : await buttonLocatorV2.click();
 });
