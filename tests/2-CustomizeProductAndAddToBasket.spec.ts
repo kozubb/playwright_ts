@@ -1,7 +1,7 @@
 import { test, expect } from "@playwright/test";
 
 test("Customize product and add to the basket", async ({ page }) => {
-  const endpoint: string = "https://qa7-www.solutions4delivery.com";
+  const endpoint: string = "https://www.qa24.s4d.eu";
   const pizzaName: string = "Hiawatha";
   const defaultPizzaPrice: string = "14.50";
   const defaultPizzaOption: string = "Regular - Large (14 inch) ";

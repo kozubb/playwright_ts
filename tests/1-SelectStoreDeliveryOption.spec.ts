@@ -1,7 +1,7 @@
 import { test, expect } from "@playwright/test";
 
 test("Select store in delivery option", async ({ page }) => {
-  const endpoint: any = "https://qa7-www.solutions4delivery.com";
+  const endpoint: any = "https://www.qa24.s4d.eu";
   const addressStreet: string = "Adelaide Road 36";
   const addressCity: string = "D02 PX29 Dublin 2";
   const infoBannertext: string =
@@ -45,7 +45,7 @@ test("Select store in delivery option", async ({ page }) => {
   );
   await page.getByTestId("drawer-footer-primary-btn").click();
   await page.waitForRequest(
-    "https://qa7-api.solutions4delivery.com/localization-api/api/v2/stores/available-hours*"
+    "https://api.qa24.s4d.eu/localization-api/api/v2/stores/available-hours*"
   );
   await expect(
     page.getByTestId("top-locator-selected-location-dropdown-title").first()
