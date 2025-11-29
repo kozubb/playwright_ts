@@ -14,9 +14,11 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
+
       - uses: actions/setup-node@v3
         with:
           node-version: 18
+
       - name: Cache npm dependencies
         uses: actions/cache@v3
         with:
@@ -24,18 +26,37 @@ jobs:
           key: ${{ runner.os }}-node-modules-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-node-modules-
+
       - name: Install dependencies
         run: npm ci
+
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
+
       - name: Create report folder
         run: mkdir -p playwright-report
+
       - name: Run Playwright tests
         run: npx playwright test
+
       - name: Upload JUnit artifact
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: junit-results
-          path: ./playwright-report/results.xml
+          path: playwright-report/results.xml
           retention-days: 14
+
+      - name: Upload HTML report artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: html-report
+          path: playwright-report/html
+          retention-days: 14
+
+      - name: Publish Test Results to GitHub
+        if: always()
+        uses: github/codeql-action/upload-test-report@v2
+        with:
+          test-report-files: playwright-report/results.xml
