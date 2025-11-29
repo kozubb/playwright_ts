@@ -1,4 +1,5 @@
 import { defineConfig, devices } from "@playwright/test";
+import path from "path";
 
 /**
  * Read environment variables from file.
@@ -23,7 +24,10 @@ export default defineConfig({
 
   reporter: [
     ["line"],
-    ["junit", { outputFile: "playwright-report/results.xml" }],
+    [
+      "junit",
+      { outputFile: path.join(process.cwd(), "playwright-report/results.xml") },
+    ],
   ],
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */ use: {
     /* Base URL to use in actions like `await page.goto('/')`. */
