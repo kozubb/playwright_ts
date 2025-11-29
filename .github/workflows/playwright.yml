@@ -36,15 +36,7 @@ jobs:
       - name: Run Playwright tests (JUnit)
         run: npx playwright test --reporter=junit --output=./playwright-report
 
-      # Publikacja wyników w GitHub Actions → zakładka "Tests"
-      - name: Publish test results to GitHub
-        if: always()
-        uses: actions/upload-test-results@v2
-        with:
-          files: ./playwright-report/results.xml
-
-      # Artefakt results.xml przechowywany 14 dni
-      - name: Upload JUnit XML artifact
+      - name: Upload JUnit artifact
         if: always()
         uses: actions/upload-artifact@v4
         with:
