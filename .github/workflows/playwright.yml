@@ -14,9 +14,11 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
+
       - uses: actions/setup-node@v3
         with:
           node-version: 18
+
       - name: Cache npm dependencies
         uses: actions/cache@v3
         with:
@@ -24,9 +26,28 @@ jobs:
           key: ${{ runner.os }}-node-modules-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-node-modules-
+
       - name: Install dependencies
         run: npm ci
+
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
-      - name: Run Playwright tests
-        run: npx playwright test
+
+      - name: Run Playwright tests (JUnit)
+        run: npx playwright test --reporter=junit --output=./playwright-report
+
+      # Publikacja wyników w GitHub Actions → zakładka "Tests"
+      - name: Publish test results to GitHub
+        if: always()
+        uses: actions/upload-test-results@v2
+        with:
+          files: ./playwright-report/results.xml
+
+      # Artefakt results.xml przechowywany 14 dni
+      - name: Upload JUnit XML artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: junit-results
+          path: ./playwright-report/results.xml
+          retention-days: 14
