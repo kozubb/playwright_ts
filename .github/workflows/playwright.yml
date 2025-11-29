@@ -39,24 +39,10 @@ jobs:
       - name: Run Playwright tests
         run: npx playwright test
 
-      - name: Upload JUnit artifact
+      - name: Upload test artifacts
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: junit-results
-          path: playwright-report/results.xml
+          name: playwright-test-artifacts
+          path: playwright-report/
           retention-days: 14
-
-      - name: Upload HTML report artifact
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: html-report
-          path: playwright-report/html
-          retention-days: 14
-
-      - name: Publish Test Results to GitHub
-        if: always()
-        uses: github/codeql-action/upload-test-report@v2
-        with:
-          test-report-files: playwright-report/results.xml
