@@ -28,6 +28,13 @@ export default defineConfig({
       "junit",
       { outputFile: path.join(process.cwd(), "playwright-report/results.xml") },
     ],
+    [
+      "html",
+      {
+        outputFolder: path.join(process.cwd(), "playwright-report/html"),
+        open: "never",
+      },
+    ],
   ],
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */ use: {
     /* Base URL to use in actions like `await page.goto('/')`. */
