@@ -29,9 +29,3 @@ jobs:
         run: npx playwright install --with-deps
       - name: Run Playwright tests
         run: npx playwright test
-      - uses: github/upload-artifact@latest
-        if: always()
-        with:
-          name: playwright-report
-          path: playwright-report/
-          retention-days: 30
