@@ -36,13 +36,19 @@ jobs:
       - name: Create report folder
         run: mkdir -p playwright-report
 
-      - name: Run Playwright tests
-        run: npx playwright test
+      - name: Run Playwright tests with JUnit reporter
+        run: npx playwright test --reporter=junit --output=playwright-report
 
-      - name: Upload test artifacts
+      - name: Upload JUnit test report using Dorny
+        uses: dorny/test-reporter-action@v2
+        with:
+          name: Playwright Test Results
+          path: playwright-report/test-results.xml
+
+      - name: Upload HTML report for GitHub Actions
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: playwright-test-artifacts
-          path: playwright-report/
+          name: playwright-html-report
+          path: playwright-report/*.html
           retention-days: 14
