@@ -1,7 +1,5 @@
 import { defineConfig, devices } from "@playwright/test";
 import path from "path";
-const reportPath = path.resolve(__dirname, "playwright-report", "results.xml");
-console.log(`Plik raportu będzie zapisany w: ${reportPath}`);
 
 /**
  * Read environment variables from file.
@@ -25,8 +23,18 @@ export default defineConfig({
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
 
   reporter: [
-    ["html", { outputFolder: "playwright-report/html", open: "never" }],
-    ["junit", { outputFile: "playwright-report/results.xml" }],
+    ["line"],
+    [
+      "junit",
+      { outputFile: path.join(process.cwd(), "playwright-report/results.xml") },
+    ],
+    [
+      "html",
+      {
+        outputFolder: path.join(process.cwd(), "playwright-report/html"),
+        open: "never",
+      },
+    ],
   ],
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */ use: {
     /* Base URL to use in actions like `await page.goto('/')`. */
