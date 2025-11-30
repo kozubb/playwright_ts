@@ -42,6 +42,7 @@ jobs:
       - name: Upload JUnit test report using Dorny
         uses: dorny/test-reporter@v1
         with:
+          reporter: junit
           name: Playwright Test Results
           path: playwright-report/test-results.xml
 
