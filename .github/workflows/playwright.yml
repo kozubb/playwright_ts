@@ -33,16 +33,27 @@ jobs:
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
 
-      - name: Create report folder
-        run: mkdir -p playwright-report
-
       - name: Run Playwright tests
         run: npx playwright test
 
-      - name: Upload test artifacts
+      - name: Upload HTML Report
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: playwright-test-artifacts
-          path: playwright-report/
+          name: playwright-html-report
+          path: playwright-report/html/
           retention-days: 14
+
+      - name: Upload JUnit Report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-junit-report
+          path: playwright-report/results.xml
+          retention-days: 14
+
+      - name: Add GitHub Annotations from JUnit report
+        if: always()
+        uses: deepsourcelabs/junit-report-action@v1
+        with:
+          junit_file: playwright-report/results.xml
