@@ -1,5 +1,7 @@
 import { defineConfig, devices } from "@playwright/test";
 import path from "path";
+const reportPath = path.resolve(__dirname, "playwright-report", "results.xml");
+console.log(`Plik raportu będzie zapisany w: ${reportPath}`);
 
 /**
  * Read environment variables from file.
@@ -26,8 +28,13 @@ export default defineConfig({
     ["line"],
     [
       "junit",
+      { outputFile: path.join(process.cwd(), "playwright-report/results.xml") },
+    ],
+    [
+      "html",
       {
-        outputFile: path.join(process.cwd(), "playwright-report/results.xml"),
+        outputFolder: path.join(process.cwd(), "playwright-report/html"),
+        open: "never",
       },
     ],
   ],
