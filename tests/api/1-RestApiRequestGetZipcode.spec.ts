@@ -1,4 +1,4 @@
-import { test, expect, request } from "@playwright/test"; // Import Playwright testing functions
+import { test, expect, request } from "@playwright/test";
 
 // Test for validating the GET request for a ZipCode via an API
 test("GET Request Zipcode", async ({ request }) => {
@@ -13,7 +13,7 @@ test("GET Request Zipcode", async ({ request }) => {
 
   // Step 1: Send GET request to the ZipCode API
   const zipcodeRequestStatus = await request.get(
-    restApiUrl + countryCode + "/" + zipCode, // Concatenate the URL with the country code and zip code
+    `${restApiUrl}${countryCode}/${zipCode}`, // Concatenate the URL with the country code and zip code using template literals
     {
       headers: {
         Accept: "application/json", // Set the expected response format to JSON
