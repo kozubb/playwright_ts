@@ -40,7 +40,7 @@ jobs:
         run: npx playwright test --reporter=junit --output=playwright-report
 
       - name: Upload JUnit test report using Dorny
-        uses: dorny/test-reporter-action@v2
+        uses: dorny/test-reporter@v1
         with:
           name: Playwright Test Results
           path: playwright-report/test-results.xml
