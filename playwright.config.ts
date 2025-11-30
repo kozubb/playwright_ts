@@ -26,13 +26,8 @@ export default defineConfig({
     ["line"],
     [
       "junit",
-      { outputFile: path.join(process.cwd(), "playwright-report/results.xml") },
-    ],
-    [
-      "html",
       {
-        outputFolder: path.join(process.cwd(), "playwright-report/html"),
-        open: "never",
+        outputFile: path.join(process.cwd(), "playwright-report/results.xml"),
       },
     ],
   ],

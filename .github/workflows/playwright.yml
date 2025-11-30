@@ -39,10 +39,7 @@ jobs:
         run: mkdir -p playwright-report
 
       - name: Run Playwright tests with multiple reporters
-        run: npx playwright test --reporter=line,junit,html --output=playwright-report
-
-      - name: List HTML report files
-        run: ls -R playwright-report/html
+        run: npx playwright test --reporter=line,junit --output=playwright-report
 
       - name: Upload Jest JUnit test report using Dorny
         uses: dorny/test-reporter@v2
@@ -50,11 +47,3 @@ jobs:
           name: Playwright Test Results
           path: playwright-report/results.xml
           reporter: jest-junit
-
-      - name: Upload HTML report for GitHub Actions
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: playwright-html-report
-          path: playwright-report/html/**/*
-          retention-days: 14
