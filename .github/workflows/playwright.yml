@@ -52,8 +52,46 @@ jobs:
           path: playwright-report/results.xml
           retention-days: 14
 
-      - name: Add GitHub Annotations from JUnit report
+      - name: Generate GitHub Annotations from JUnit report
         if: always()
-        uses: deepsourcelabs/junit-report-action@v1
+        uses: actions/github-script@v6
         with:
-          junit_file: playwright-report/results.xml
+          script: |
+            const fs = require('fs');
+            const xml2js = require('xml2js');
+
+            // Parse the JUnit XML file
+            const xmlData = fs.readFileSync('playwright-report/results.xml', 'utf8');
+            const parser = new xml2js.Parser();
+            parser.parseString(xmlData, (err, result) => {
+              if (err) {
+                console.error('Error parsing XML:', err);
+                return;
+              }
+
+              const testsuites = result.testsuites.testsuite;
+              testsuites.forEach(testsuite => {
+                testsuite.testcase.forEach(testcase => {
+                  // If the test has failed, add an annotation
+                  if (testcase.failure || testcase.error) {
+                    const testName = testcase.$.name;
+                    const message = testcase.failure ? testcase.failure[0]._ : testcase.error[0]._ || 'Unknown error';
+                    const line = testcase.$.line || 1;
+
+                    // Create an annotation for each failed test
+                    github.rest.repos.createCommitStatus({
+                      ...context.repo,
+                      sha: context.sha,
+                      state: 'failure',
+                      description: `Test failed: ${testName}`,
+                      target_url: '',  // Optional URL if needed
+                      context: 'Playwright Tests',
+                    });
+
+                    // Alternatively, you can create annotation here using:
+                    // github.rest.repos.createCheckRunAnnotations({/* ... */})
+                    core.setFailed(`Test failed: ${testName} - ${message}`);
+                  }
+                });
+              });
+            });
