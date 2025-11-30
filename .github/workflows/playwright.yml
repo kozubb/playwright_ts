@@ -13,11 +13,13 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout repository
+        uses: actions/checkout@v3
 
-      - uses: actions/setup-node@v3
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
         with:
-          node-version: 18
+          node-version: "18"
 
       - name: Cache npm dependencies
         uses: actions/cache@v3
@@ -36,15 +38,15 @@ jobs:
       - name: Create report folder
         run: mkdir -p playwright-report
 
-      - name: Run Playwright tests with JUnit reporter
-        run: npx playwright test --reporter=java-junit --output=playwright-report
+      - name: Run Playwright tests with Jest JUnit reporter
+        run: npx playwright test --reporter=jest-junit --output=playwright-report
 
-      - name: Upload JUnit test report using Dorny
+      - name: Upload Jest JUnit test report using Dorny
         uses: dorny/test-reporter@v2
         with:
-          name: Playwright Test Results
+          name: Jest Playwright Test Results
           path: playwright-report/test-results.xml
-          reporter: java-junit
+          reporter: jest-junit
 
       - name: Upload HTML report for GitHub Actions
         if: always()
