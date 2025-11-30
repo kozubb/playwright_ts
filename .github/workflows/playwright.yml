@@ -41,6 +41,9 @@ jobs:
       - name: Run Playwright tests with multiple reporters
         run: npx playwright test --reporter=line,junit --output=playwright-report
 
+      - name: List files in playwright-report folder
+        run: ls -R playwright-report
+
       - name: Upload Jest JUnit test report using Dorny
         uses: dorny/test-reporter@v2
         with:
