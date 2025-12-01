@@ -25,6 +25,7 @@ export default defineConfig({
         open: "never",
       },
     ],
+    ["@estruyf/github-actions-reporter", { useDetails: true }],
   ],
   use: {
     trace: "on-first-retry",
