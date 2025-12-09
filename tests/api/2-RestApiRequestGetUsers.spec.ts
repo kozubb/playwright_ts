@@ -3,13 +3,13 @@ import { test, expect, request } from "@playwright/test";
 // Test for validating the GET request for a user through an API (using jsonplaceholder.typicode.com)
 test("GET Request for User Data", async ({ request }) => {
   // Test data initialization
-  const restApiUrl: string = "https://jsonplaceholder.typicode.com/"; // The base URL of the API
-  const path: string = "users"; // API endpoint for users
-  const expectedName: string = "Kurtis Weissnat"; // Expected name of the user in the API response
-  const expectedUsername: string = "Elwyn.Skiles"; // Expected username of the user in the API response
-  const expectedCity: string = "Howemouth"; // Expected city in the user's address
-  const expectedCompanyName: string = "Johns Group"; // Expected company name of the user
-  const expectedCatchPhrase: string = "Configurable multimedia task-force"; // Expected company catchphrase
+  const restApiUrl: string = "https://jsonplaceholder.typicode.com/";
+  const path: string = "users";
+  const expectedName: string = "Kurtis Weissnat";
+  const expectedUsername: string = "Elwyn.Skiles";
+  const expectedCity: string = "Howemouth";
+  const expectedCompanyName: string = "Johns Group";
+  const expectedCatchPhrase: string = "Configurable multimedia task-force";
 
   // Step 1: Send GET request to the users API
   const userDataStatus = await request.get(

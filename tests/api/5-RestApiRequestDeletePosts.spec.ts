@@ -3,8 +3,8 @@ import { test, expect, request } from "@playwright/test";
 // Test for validating the DELETE request to remove a post via an API (jsonplaceholder.typicode.com)
 test("DELETE Request to Remove Post", async ({ request }) => {
   // Test data initialization
-  const restApiUrl: string = "https://jsonplaceholder.typicode.com/"; // The base URL of the API
-  const path: string = "posts"; // API endpoint for posts
+  const restApiUrl: string = "https://jsonplaceholder.typicode.com/";
+  const path: string = "posts";
 
   const postId = 1; // ID of the post to delete (for example, we are deleting post with ID 1)
 

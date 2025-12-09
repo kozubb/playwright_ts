@@ -3,13 +3,13 @@ import { test, expect, request } from "@playwright/test";
 // Test for validating the GET request for a ZipCode via an API
 test("GET Request Zipcode", async ({ request }) => {
   // Test data initialization
-  const restApiUrl: string = "https://api.zippopotam.us/"; // The base URL of the ZipCode API
-  const countryCode: string = "us"; // The country code (United States)
-  const zipCode: number = 28270; // The ZipCode we want to look up (Charlotte, NC)
-  const country: string = "United States"; // Expected country name in the API response
-  const stateCode: string = "NC"; // Expected state abbreviation (North Carolina)
-  const stateName: string = "North Carolina"; // Full name of the state
-  const city: string = "Charlotte"; // Expected city name in the API response
+  const restApiUrl: string = "https://api.zippopotam.us/";
+  const countryCode: string = "us";
+  const zipCode: number = 28270;
+  const country: string = "United States";
+  const stateCode: string = "NC";
+  const stateName: string = "North Carolina";
+  const city: string = "Charlotte";
 
   // Step 1: Send GET request to the ZipCode API
   const zipcodeRequestStatus = await request.get(

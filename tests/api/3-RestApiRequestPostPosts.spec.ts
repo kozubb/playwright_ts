@@ -3,13 +3,13 @@ import { test, expect, request } from "@playwright/test";
 // Test for validating the POST request to create a new post via an API (jsonplaceholder.typicode.com)
 test("POST Request to Create Post", async ({ request }) => {
   // Test data initialization
-  const restApiUrl: string = "https://jsonplaceholder.typicode.com/"; // The base URL of the API
-  const path: string = "posts"; // API endpoint for posts
+  const restApiUrl: string = "https://jsonplaceholder.typicode.com/";
+  const path: string = "posts";
   const requestBody = {
     // Data to be sent in the POST request body
-    title: "testTitle", // Title of the post
-    body: "bodyTitle", // Body content of the post
-    userId: 1, // User ID associated with the post
+    title: "testTitle",
+    body: "bodyTitle",
+    userId: 1,
   };
 
   // Step 1: Send POST request to create a new post

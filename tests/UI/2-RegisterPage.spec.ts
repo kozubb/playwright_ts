@@ -1,5 +1,5 @@
-import { test, expect } from "@playwright/test"; // Import Playwright testing functions
-import { RegisterDto } from "./registerForm.dto"; // Import RegisterDto for test data typing
+import { test, expect } from "@playwright/test";
+import { RegisterDto } from "./registerForm.dto";
 
 // E2E test for registering a new account
 test("Register account", async ({ page }) => {

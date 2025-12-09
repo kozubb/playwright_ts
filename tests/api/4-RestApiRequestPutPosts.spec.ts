@@ -3,14 +3,14 @@ import { test, expect, request } from "@playwright/test";
 // Test for validating the PUT request to update a post via an API (jsonplaceholder.typicode.com)
 test("PUT Request to Update Post", async ({ request }) => {
   // Test data initialization
-  const restApiUrl: string = "https://jsonplaceholder.typicode.com/"; // The base URL of the API
-  const path: string = "posts"; // API endpoint for posts
+  const restApiUrl: string = "https://jsonplaceholder.typicode.com/";
+  const path: string = "posts";
 
   // Data to be sent in the PUT request body for updating the post
   const updatedRequestBody = {
-    title: "updatedTitle", // Updated title of the post
-    body: "updatedBody", // Updated body content of the post
-    userId: 1, // User ID associated with the post (same as the original post)
+    title: "updatedTitle",
+    body: "updatedBody",
+    userId: 1,
   };
 
   const postId = 1; // ID of the post to update (for example, we are updating post with ID 1)
