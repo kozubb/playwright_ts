@@ -1,16 +1,16 @@
 import { test, expect, request } from "@playwright/test";
+// Test data initialization
+const restApiUrl: string = "https://jsonplaceholder.typicode.com/";
+const path: string = "users";
+const notExistedPath: string = "userstest";
+const expectedName: string = "Kurtis Weissnat";
+const expectedUsername: string = "Elwyn.Skiles";
+const expectedCity: string = "Howemouth";
+const expectedCompanyName: string = "Johns Group";
+const expectedCatchPhrase: string = "Configurable multimedia task-force";
 
 // Test for validating the GET request for a user through an API (using jsonplaceholder.typicode.com)
 test("GET Request for User Data", async ({ request }) => {
-  // Test data initialization
-  const restApiUrl: string = "https://jsonplaceholder.typicode.com/";
-  const path: string = "users";
-  const expectedName: string = "Kurtis Weissnat";
-  const expectedUsername: string = "Elwyn.Skiles";
-  const expectedCity: string = "Howemouth";
-  const expectedCompanyName: string = "Johns Group";
-  const expectedCatchPhrase: string = "Configurable multimedia task-force";
-
   // Step 1: Send GET request to the users API
   const userDataStatus = await request.get(
     `${restApiUrl}${path}/7`, // Concatenate the URL with the user ID (7 in this case)
@@ -44,4 +44,20 @@ test("GET Request for User Data", async ({ request }) => {
 
   // Validate the company catchphrase
   expect(responseBody.company.catchPhrase).toBe(expectedCatchPhrase); // Assert that the company catchphrase matches the expected value
+});
+
+// Test to validate the GET request for a non-existent path (404 Not Found)
+test("GET Request for User Data (404 Not Found)", async ({ request }) => {
+  // Step 1: Send a GET request to the users API with a non-existent path
+  const userDataStatus = await request.get(
+    `${restApiUrl}${notExistedPath}/7`, // Construct the URL with a non-existent path
+    {
+      headers: {
+        Accept: "application/json", // Specify the expected response format as JSON
+      },
+    }
+  );
+
+  // Step 2: Assert that the status code is 404 (Not Found)
+  expect(userDataStatus.status()).toBe(404); // Validate that the response code is 404 for non-existent path
 });
