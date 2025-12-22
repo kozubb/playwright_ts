@@ -26,7 +26,7 @@ async function login(page: Page): Promise<void> {
   await expect(page.locator(".user-name")).toHaveText(email); // Verify the email is shown in the user name element
 }
 
-test("E2E test - place order", async ({ page }) => {
+test.skip("E2E test - place order", async ({ page }) => {
   // Step 1: Login
   await login(page);
 

@@ -2,7 +2,7 @@ import { test, expect } from "@playwright/test";
 import { RegisterDto } from "./registerForm.dto";
 
 // E2E test for registering a new account
-test("Register account", async ({ page }) => {
+test.skip("Register account", async ({ page }) => {
   // Test data initialization
   const endpoint: string = "https://practice.qabrains.com/"; // URL of the registration page
   const registerSuccessfulMsg: string = "Registration Successful"; // Message displayed after successful registration

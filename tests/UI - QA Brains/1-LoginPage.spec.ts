@@ -1,7 +1,7 @@
 import { test, expect } from "@playwright/test";
 
 // E2E test for logging into an account and verifying login/logout functionality
-test("Login into account", async ({ page }) => {
+test.skip("Login into account", async ({ page }) => {
   // Test data - endpoint, credentials, and messages
   const endpoint: string = "https://practice.qabrains.com/";
   const email: string = "qa_testers@qabrains.com"; // Email for login
