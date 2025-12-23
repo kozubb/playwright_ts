@@ -28,7 +28,7 @@ test("Login into account and logout - success", async ({ page }) => {
   await login.fillInput("password", password);
 
   // Step 4: Press the login button
-  login.pressLoginButton();
+  await login.pressLoginButton();
 
   // Step 5: Verify that inventory page is loaded and cart is visible
   await page.waitForURL(`${endpoint}/inventory.html`);
@@ -56,10 +56,10 @@ test("login - wrong password", async ({ page }) => {
   await login.fillInput("password", wrongPassword);
 
   // Step 4: Press the login button
-  login.pressLoginButton();
+  await login.pressLoginButton();
 
   // Step 5: Verify error message for wrong credentials
-  login.checkLoginErrorMessage(wrongDataMessage);
+  await login.checkLoginErrorMessage(wrongDataMessage);
 });
 
 // E2E test: Login with locked-out user
@@ -75,8 +75,8 @@ test("login - user is locked", async ({ page }) => {
   await login.fillInput("password", password);
 
   // Step 4: Press the login button
-  login.pressLoginButton();
+  await login.pressLoginButton();
 
   // Step 5: Verify error message for locked user
-  login.checkLoginErrorMessage(lockedUserMessage);
+  await login.checkLoginErrorMessage(lockedUserMessage);
 });
