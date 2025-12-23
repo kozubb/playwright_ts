@@ -39,7 +39,7 @@ export default class LoginPage {
 
   // Check if login button is visible on the page
   public async checkLoginErrorMessage(expectedText: string): Promise<void> {
-    const errorMessage = this.page.locator('[data-test="error"]');
+    const errorMessage = this.page.locator(`[data-test="error"]`);
     await expect(errorMessage).toContainText(expectedText);
   }
 
