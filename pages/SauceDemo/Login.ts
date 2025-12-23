@@ -39,7 +39,7 @@ export default class LoginPage {
 
   // Check login error message
   public async checkLoginErrorMessage(expectedText: string): Promise<void> {
-    const errorMessage = this.page.locator(`[data-test="error"]`);
+    const errorMessage: Locator = this.page.locator(`[data-test="error"]`);
     await errorMessage.isVisible();
     await expect(errorMessage).toContainText(expectedText);
   }
