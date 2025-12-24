@@ -32,7 +32,7 @@ test("Login into account and logout - success", async ({ page }) => {
 
   // Step 5: Verify that inventory page is loaded and cart is visible
   await page.waitForURL(`${endpoint}/inventory.html`);
-  productListing.checkIfCartIsVisible();
+  productListing.validateIfCartIsVisible();
 
   // Step 6: Open hamburger menu and log out
   hamburgerMenu.pressHamburgerMenuIcon();
@@ -40,7 +40,7 @@ test("Login into account and logout - success", async ({ page }) => {
 
   // Step 7: Verify return to login page
   await page.waitForURL(`${endpoint}`);
-  login.checkIfLoginButtonIsVisible();
+  login.validateIfLoginButtonIsVisible();
 });
 
 // E2E test: Login with wrong password
@@ -59,7 +59,7 @@ test("login - wrong password", async ({ page }) => {
   await login.pressLoginButton();
 
   // Step 5: Verify error message for wrong credentials
-  await login.checkLoginErrorMessage(wrongDataMessage);
+  await login.validateLoginErrorMessage(wrongDataMessage);
 });
 
 // E2E test: Login with locked-out user
@@ -78,5 +78,5 @@ test("login - user is locked", async ({ page }) => {
   await login.pressLoginButton();
 
   // Step 5: Verify error message for locked user
-  await login.checkLoginErrorMessage(lockedUserMessage);
+  await login.validateLoginErrorMessage(lockedUserMessage);
 });

@@ -32,13 +32,13 @@ export default class LoginPage {
   // #region Validations on UI elements
 
   // Check if login button is visible on the page
-  public async checkIfLoginButtonIsVisible(): Promise<void> {
+  public async validateIfLoginButtonIsVisible(): Promise<void> {
     const loginButtonVisibility = await this.loginButton.isVisible();
     expect(loginButtonVisibility).toBeTruthy();
   }
 
   // Check login error message
-  public async checkLoginErrorMessage(expectedText: string): Promise<void> {
+  public async validateLoginErrorMessage(expectedText: string): Promise<void> {
     const errorMessage: Locator = this.page.locator(`[data-test="error"]`);
     await errorMessage.isVisible();
     await expect(errorMessage).toContainText(expectedText);

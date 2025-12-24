@@ -58,19 +58,21 @@ export default class ProductListing {
   // #region Validations on UI elements
 
   // Check if login button is visible on the page
-  public async checkIfCartIsVisible(): Promise<void> {
+  public async validateIfCartIsVisible(): Promise<void> {
     await expect(this.shoppingCart).toBeVisible();
   }
 
   // Check if remove button is visible for specific product
-  public async checkIfRemoveButtonIsVisible(
+  public async valiadteIfRemoveButtonIsVisible(
     productName: string
   ): Promise<void> {
     await expect(this.removeProductButton(productName)).toBeVisible();
   }
 
   // Check shopping cart amount
-  public async checkShoppingCartAmount(expectedNumber: string): Promise<void> {
+  public async validateShoppingCartAmount(
+    expectedNumber: string
+  ): Promise<void> {
     await expect(this.shoppingCartAmount).toHaveText(expectedNumber);
   }
 
