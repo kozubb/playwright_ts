@@ -76,12 +76,15 @@ export default class ProductListing {
     await expect(this.productTitleCart(productId)).toHaveText(productTitle);
   }
 
-  // Check product price by position
+  // Check product price in cart by position
   public async validateProductPriceInCart(
     position: number,
     price: string
   ): Promise<void> {
-    await expect(this.productPrice.nth(position)).toHaveText(price);
+    const cartItem = this.page.locator(".cart_item").nth(position);
+    const productPrice = cartItem.locator('[data-test="inventory-item-price"]');
+
+    await expect(productPrice).toHaveText(price);
   }
 
   // #endregion

@@ -14,19 +14,29 @@ export default class ProductListing {
 
   // #region Helpers on UI elements
 
+  // Converts product name to selector format
+  public formatProductName(productName: string): string {
+    return productName.toLowerCase().replace(/\s+/g, "-");
+  }
+
   // Return locator for add to order button
   addToOrderButton(productName: string): Locator {
-    return this.page.locator(`[data-test="add-to-cart-${productName}"]`);
+    const formattedName = this.formatProductName(productName);
+    return this.page.locator(`[data-test="add-to-cart-${formattedName}"]`);
   }
 
   // Return locator for remove product button
   removeProductButton(productName: string): Locator {
-    return this.page.locator(`[data-test="remove-${productName}"]`);
+    const formattedName = this.formatProductName(productName);
+    return this.page.locator(`[data-test="remove-${formattedName}"]`);
   }
 
   // Return locator for product image for opening pdp
   productImage(productName: string): Locator {
-    return this.page.locator(`[data-test="inventory-item-${productName}-img"]`);
+    const formattedName = this.formatProductName(productName);
+    return this.page.locator(
+      `[data-test="inventory-item-${formattedName}-img"]`
+    );
   }
 
   // #endregion
@@ -63,7 +73,7 @@ export default class ProductListing {
   }
 
   // Check if remove button is visible for specific product
-  public async valiadteIfRemoveButtonIsVisible(
+  public async validateIfRemoveButtonIsVisible(
     productName: string
   ): Promise<void> {
     await expect(this.removeProductButton(productName)).toBeVisible();
