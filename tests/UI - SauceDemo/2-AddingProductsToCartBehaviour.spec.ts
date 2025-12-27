@@ -15,8 +15,9 @@ const productBikeLightName = "Sauce Labs Bike Light";
 const productBikeLightId = 0;
 const productBackpackId = 4;
 
-const productBackpackPrice = "$29.99";
-const productBikeLightPrice = "$9.99";
+const productBackpackPrice = 29.99;
+const productBikeLightPrice = 9.99;
+const currency = "$";
 
 // E2E test: Add products to the cart and verify cart content
 test("Add products to cart and verify cart details", async ({ page }) => {
@@ -57,8 +58,16 @@ test("Add products to cart and verify cart details", async ({ page }) => {
   await cart.validateProductQuantityInCart(0, "1");
   await cart.validateProductQuantityInCart(1, "1");
 
-  await cart.validateProductPriceInCart(0, productBackpackPrice);
-  await cart.validateProductPriceInCart(1, productBikeLightPrice);
+  await cart.validateProductPriceInCartSeparate(
+    0,
+    currency,
+    productBackpackPrice
+  );
+  await cart.validateProductPriceInCartSeparate(
+    1,
+    currency,
+    productBikeLightPrice
+  );
 });
 
 // E2E test: Add products to the cart and verify cart content
@@ -87,7 +96,10 @@ test("Add products from PDP to cart and verify cart details", async ({
     `${endpoint}/inventory-item.html?id=${productBackpackId}`
   );
   await productDetails.validateProductTitle(productBackpackName);
-  await productDetails.validateProductPrice(productBackpackPrice);
+  await productDetails.validateProductPriceAndCurrency(
+    currency,
+    productBackpackPrice
+  );
   await productDetails.pressAddToCartButton();
   await productListing.validateShoppingCartAmount("1");
   await productDetails.pressBackButton();
@@ -97,8 +109,11 @@ test("Add products from PDP to cart and verify cart details", async ({
   await page.waitForURL(
     `${endpoint}/inventory-item.html?id=${productBikeLightId}`
   );
-  +(await productDetails.validateProductTitle(productBikeLightName));
-  await productDetails.validateProductPrice(productBikeLightPrice);
+  await productDetails.validateProductTitle(productBikeLightName);
+  await productDetails.validateProductPriceAndCurrency(
+    currency,
+    productBikeLightPrice
+  );
   await productDetails.pressAddToCartButton();
   await productListing.validateShoppingCartAmount("2");
 
@@ -117,6 +132,57 @@ test("Add products from PDP to cart and verify cart details", async ({
   await cart.validateProductQuantityInCart(0, "1");
   await cart.validateProductQuantityInCart(1, "1");
 
-  await cart.validateProductPriceInCart(0, productBackpackPrice);
-  await cart.validateProductPriceInCart(1, productBikeLightPrice);
+  await cart.validateProductPriceInCartSeparate(
+    0,
+    currency,
+    productBackpackPrice
+  );
+  await cart.validateProductPriceInCartSeparate(
+    1,
+    currency,
+    productBikeLightPrice
+  );
+});
+
+// E2E test: Add products from PDP and PLP and verify no duplicate add possible
+test("Add products from PDP and from PLP and verify that there is no possibility to add the same product once again", async ({
+  page,
+}) => {
+  // Step 1: Log in as standard user
+  await loginAs(page, { endpoint, username, password });
+
+  // Step 2: Initialize page objects
+  const productListing = new ProductListing(page);
+  const cart = new Cart(page);
+  const productDetails = new ProductDetails(page);
+
+  // Step 3: Verify inventory page is loaded and cart is visible
+  await page.waitForURL(`${endpoint}/inventory.html`);
+  await productListing.validateIfCartIsVisible();
+
+  // Step 4: Add productBackpack from PDP
+  await productListing.pressProductImage(productBackpackName); // Open PDP
+  await page.waitForURL(
+    `${endpoint}/inventory-item.html?id=${productBackpackId}`
+  );
+  await productDetails.validateProductTitle(productBackpackName); // Validate title
+  await productDetails.validateProductPriceAndCurrency(
+    currency,
+    productBackpackPrice
+  ); // Validate price
+  await productDetails.pressAddToCartButton(); // Add to cart
+  await productListing.validateShoppingCartAmount("1"); // Validate cart count
+  await productDetails.valiateIfRemoveButtonIsVisible(); // Validate "Remove" button
+  await productDetails.pressBackButton(); // Go back to listing page
+
+  // Step 5: Verify "Add to Cart" button is disabled / product cannot be added again
+  await productListing.validateIfRemoveButtonIsVisible(productBackpackName); // Check cannot add again
+
+  // Step 6: Add productBikeLight from PLP
+  await productListing.pressAddToOrderButton(productBikeLightName); // Add from listing
+  await productListing.validateShoppingCartAmount("2"); // Validate cart count
+  await productListing.validateIfRemoveButtonIsVisible(productBikeLightName); // Validate "Remove" button
+
+  // Step 7: Verify "Add to Cart" button is disabled for productBikeLight
+  await productListing.validateIfRemoveButtonIsVisible(productBikeLightName); // Check cannot add again
 });

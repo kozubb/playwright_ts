@@ -76,15 +76,39 @@ export default class ProductListing {
     await expect(this.productTitleCart(productId)).toHaveText(productTitle);
   }
 
-  // Check product price in cart by position
-  public async validateProductPriceInCart(
+  // Check product price in cart by position, validating currency and numeric value separately
+  public async validateProductPriceInCartSeparate(
     position: number,
-    price: string
+    expectedCurrency: string,
+    expectedValue: number
   ): Promise<void> {
     const cartItem = this.page.locator(".cart_item").nth(position);
     const productPrice = cartItem.locator('[data-test="inventory-item-price"]');
 
-    await expect(productPrice).toHaveText(price);
+    // Get the text of the price
+    const priceText = await productPrice.textContent();
+
+    if (!priceText) {
+      throw new Error(
+        `Price text not found for cart item at position ${position}`
+      );
+    }
+
+    // Extract currency (non-digit characters at the start)
+    const currencyMatch = priceText.match(/^[^\d]+/);
+    if (!currencyMatch) {
+      throw new Error(`Currency not found in price "${priceText}"`);
+    }
+
+    // Extract numeric value
+    const numberMatch = priceText.match(/[\d,.]+/);
+    if (!numberMatch) {
+      throw new Error(`Numeric value not found in price "${priceText}"`);
+    }
+
+    // Assertions
+    expect(currencyMatch[0]).toBe(expectedCurrency);
+    expect(parseFloat(numberMatch[0].replace(",", ""))).toBe(expectedValue);
   }
 
   // #endregion

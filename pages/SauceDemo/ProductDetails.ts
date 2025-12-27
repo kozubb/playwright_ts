@@ -45,9 +45,40 @@ export default class ProductListing {
     await expect(this.productTitle).toHaveText(productName);
   }
 
-  // Validate product price text
-  public async validateProductPrice(expectedPrice: string): Promise<void> {
-    await expect(this.productPrice).toHaveText(expectedPrice);
+  // Validate product price text, separate currency and numeric value
+  public async validateProductPriceAndCurrency(
+    expectedCurrency: string,
+    expectedValue: number
+  ): Promise<void> {
+    // Get the text content of the price
+    const priceText = await this.productPrice.textContent();
+
+    if (!priceText) {
+      throw new Error("Price text not found"); // Throw error if no text
+    }
+
+    // Extract currency symbol (e.g., $)
+    const currencyMatch = priceText.match(/^[^\d]+/);
+    if (!currencyMatch) {
+      throw new Error(`Currency not found in price "${priceText}"`); // Throw if currency missing
+    }
+
+    // Extract numeric value (e.g., 9.99)
+    const numberMatch = priceText.match(/[\d,.]+/);
+    if (!numberMatch) {
+      throw new Error(`Numeric value not found in price "${priceText}"`); // Throw if number missing
+    }
+
+    // Assert currency separately
+    expect(currencyMatch[0]).toBe(expectedCurrency);
+
+    // Assert numeric value separately
+    expect(parseFloat(numberMatch[0].replace(",", ""))).toBe(expectedValue);
+  }
+
+  // Validate if remove item is visible after adding product to the cart
+  public async valiateIfRemoveButtonIsVisible(): Promise<void> {
+    await expect(this.removeButton).toBeVisible();
   }
 
   // #endregion
