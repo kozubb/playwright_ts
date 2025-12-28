@@ -3,11 +3,11 @@ import Helpers from "./Helpers";
 
 export default class Cart {
   private page: Page;
-  private itemQuantity: Locator;
-  private checkoutButton: Locator;
-  private productPrice: Locator;
-  private continueShoppingButton: Locator;
-  private helpers: Helpers;
+  itemQuantity: Locator;
+  checkoutButton: Locator;
+  productPrice: Locator;
+  continueShoppingButton: Locator;
+  helpers: Helpers;
 
   // Constructor to initialize the Page instance and helpers
   constructor(page: Page) {
