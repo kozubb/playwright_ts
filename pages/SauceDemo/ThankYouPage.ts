@@ -1,6 +1,6 @@
 import { Page, Locator, expect } from "@playwright/test";
 
-export default class LoginPage {
+export default class ThankYouPage {
   private page: Page;
   thankYouText: Locator;
   backHomeButton: Locator;

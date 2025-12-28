@@ -46,6 +46,11 @@ export default class Helpers {
     return text.replace(/[&\/\\#,+()~%_.'":*?<>{} ]/g, "").toLowerCase();
   }
 
+  // Remove letters, colons, and spaces from a string
+  removeLettersColonAndSpace(text: string): string {
+    return text.replace(/[a-zA-Z:\s]/g, "");
+  }
+
   // Convert comma to dot and parse string to float
   changeCommaSign(text: string) {
     return parseFloat(text.trim().replace(",", "."));
@@ -58,12 +63,18 @@ export default class Helpers {
     expectedCurrencySymbol: string
   ) {
     const expectedPriceAsNumberFixed = +expectedPriceValue.toFixed(2);
+    const priceWithoutLetters =
+      this.removeLettersColonAndSpace(currentPriceElement);
+    console.log(priceWithoutLetters);
     const price = this.changeCommaSign(
-      this.removeCurrencySymbol(currentPriceElement)
+      this.removeCurrencySymbol(priceWithoutLetters)
     );
+    const currencySymbolWithoutLetters =
+      this.removeLettersColonAndSpace(currentPriceElement);
     const currencySymbol = this.removeSpecialChars(
-      this.removePrice(currentPriceElement)
+      this.removePrice(currencySymbolWithoutLetters)
     );
+    console.log(price);
 
     // Assert that numeric price matches expected
     expect(price).toBeCloseTo(expectedPriceAsNumberFixed, 2);

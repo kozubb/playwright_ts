@@ -49,7 +49,7 @@ export default class Overview {
     expectedPrice: number,
     currency: string
   ): Promise<this> {
-    const subtotalPriceText = await this.totalPrice.textContent();
+    const subtotalPriceText = await this.subtotalPrice.textContent();
     if (!subtotalPriceText) throw new Error("Product price not found");
     this.helpers.priceValidator(subtotalPriceText, expectedPrice, currency);
     return this;
