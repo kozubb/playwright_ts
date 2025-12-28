@@ -1,7 +1,9 @@
 import { Page, Locator, expect } from "@playwright/test";
+import Helpers from "./Helpers";
 
-export default class ProductListing {
+export default class Overview {
   private page: Page;
+  helpers: Helpers;
   paymentMethod: Locator;
   deliveryMethod: Locator;
   subtotalPrice: Locator;
@@ -12,6 +14,7 @@ export default class ProductListing {
   // Constructor to initialize the Page instance
   public constructor(page: Page) {
     this.page = page;
+    this.helpers = new Helpers(page);
     this.paymentMethod = page.locator('[data-test="payment-info-value"]');
     this.deliveryMethod = page.locator('[data-test="shipping-info-value"]');
     this.subtotalPrice = page.locator('[data-test="subtotal-label"]');
@@ -41,73 +44,27 @@ export default class ProductListing {
     await expect(this.deliveryMethod).toHaveText(expectedText);
   }
 
-  // Validate subtotal price by separating currency and numeric value
-  public async validateSubtotal(
-    expectedCurrency: string,
-    expectedSubtotal: number
-  ): Promise<void> {
-    // Get the text of the subtotal element
-    const subtotalText = await this.page
-      .locator('[data-test="subtotal"]')
-      .textContent();
-
-    if (!subtotalText) {
-      throw new Error("Subtotal text not found");
-    }
-
-    // Extract currency symbol
-    const currencyMatch = subtotalText.match(/^[^\d]+/);
-    if (!currencyMatch) {
-      throw new Error(`Currency not found in subtotal "${subtotalText}"`);
-    }
-
-    // Extract numeric value
-    const numberMatch = subtotalText.match(/[\d,.]+/);
-    if (!numberMatch) {
-      throw new Error(`Numeric value not found in subtotal "${subtotalText}"`);
-    }
-
-    // Assert currency
-    expect(currencyMatch[0]).toBe(expectedCurrency);
-
-    // Assert numeric value (convert string to float)
-    expect(parseFloat(numberMatch[0].replace(",", ""))).toBeCloseTo(
-      expectedSubtotal,
-      2
-    );
+  // Validate subtotal price (currency + numeric value)
+  async validateSubtotal(
+    expectedPrice: number,
+    currency: string
+  ): Promise<this> {
+    const subtotalPriceText = await this.totalPrice.textContent();
+    if (!subtotalPriceText) throw new Error("Product price not found");
+    this.helpers.priceValidator(subtotalPriceText, expectedPrice, currency);
+    return this;
   }
 
-  public async validateTotalFromSubtotalAndTax(): Promise<void> {
-    // Get subtotal, tax, and total texts
-    const subtotalText = (await this.subtotalPrice.textContent()) ?? "";
-    const taxText = (await this.taxPrice.textContent()) ?? "";
-    const totalText = (await this.totalPrice.textContent()) ?? "";
+  // Validate total price, check currency
+  async validateTotalPrice(
+    expectedPrice: number,
+    currencySymbol: string
+  ): Promise<this> {
+    const totalPriceText = await this.totalPrice.textContent();
+    if (!totalPriceText) throw new Error("Product price not found");
 
-    if (!subtotalText || !taxText || !totalText) {
-      throw new Error("Subtotal, tax, or total text not found");
-    }
-
-    // Extract currency symbols
-    const subtotalCurrency = subtotalText.match(/^[^\d]+/)?.[0] ?? "";
-    const taxCurrency = taxText.match(/^[^\d]+/)?.[0] ?? "";
-    const totalCurrency = totalText.match(/^[^\d]+/)?.[0] ?? "";
-
-    if (!subtotalCurrency || !taxCurrency || !totalCurrency) {
-      throw new Error("Currency not found in subtotal, tax, or total");
-    }
-
-    // Assert currencies are consistent
-    expect(subtotalCurrency).toBe(taxCurrency);
-    expect(subtotalCurrency).toBe(totalCurrency);
-
-    // Extract numeric values safely
-    const subtotalValue = parseFloat(subtotalText.match(/[\d,.]+/)?.[0] ?? "0");
-    const taxValue = parseFloat(taxText.match(/[\d,.]+/)?.[0] ?? "0");
-    const totalValue = parseFloat(totalText.match(/[\d,.]+/)?.[0] ?? "0");
-
-    // Assert total equals subtotal + tax
-    expect(totalValue).toBeCloseTo(subtotalValue + taxValue, 2);
+    this.helpers.priceValidator(totalPriceText, expectedPrice, currencySymbol);
+    return this;
   }
-
   // #endregion
 }

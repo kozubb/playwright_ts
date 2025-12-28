@@ -1,38 +1,40 @@
 import { Page, Locator, expect } from "@playwright/test";
+import Helpers from "./Helpers";
 
-// Page Object for Product Listing Page
-export default class ProductListing {
+export default class ProductDetails {
   private page: Page;
-  productTitle: Locator;
-  productPrice: Locator;
+  helpers: Helpers;
   addToCartButton: Locator;
   removeButton: Locator;
   backButton: Locator;
+  productTitle: Locator;
+  productPrice: Locator;
 
-  // Initialize locators
+  // Constructor to initialize locators and helpers
   constructor(page: Page) {
     this.page = page;
-    this.productTitle = page.locator('[data-test="inventory-item-name"]');
-    this.productPrice = page.locator('[data-test="inventory-item-price"]');
+    this.helpers = new Helpers(page);
     this.addToCartButton = page.locator('[data-test="add-to-cart"]');
     this.removeButton = page.locator('[data-test="remove"]');
     this.backButton = page.locator('[data-test="back-to-products"]');
+    this.productTitle = page.locator('[data-test="inventory-item-name"]');
+    this.productPrice = page.locator('[data-test="inventory-item-price"]');
   }
 
   // #region Actions
 
-  // Press "Add to Cart" button
-  public async pressAddToCartButton(): Promise<void> {
+  // Click "Add to Cart" button
+  async pressAddToCartButton(): Promise<void> {
     await this.addToCartButton.click();
   }
 
-  // Press "Remove" button
-  public async pressRemoveButton(): Promise<void> {
+  // Click "Remove" button
+  async pressRemoveButton(): Promise<void> {
     await this.removeButton.click();
   }
 
-  // Press "Back" button
-  public async pressBackButton(): Promise<void> {
+  // Click "Back to Products" button
+  async pressBackButton(): Promise<void> {
     await this.backButton.click();
   }
 
@@ -41,43 +43,24 @@ export default class ProductListing {
   // #region Validations
 
   // Validate product title text
-  public async validateProductTitle(productName: string): Promise<void> {
-    await expect(this.productTitle).toHaveText(productName);
+  async validateProductTitle(expectedTitle: string): Promise<void> {
+    await expect(this.productTitle).toHaveText(expectedTitle);
   }
 
-  // Validate product price text, separate currency and numeric value
-  public async validateProductPriceAndCurrency(
-    expectedCurrency: string,
-    expectedValue: number
+  // Validate product price text (numeric + currency)
+  async validateProductPrice(
+    expectedPrice: number,
+    currencySymbol: string
   ): Promise<void> {
-    // Get the text content of the price
     const priceText = await this.productPrice.textContent();
+    if (!priceText) throw new Error("Product price not found");
 
-    if (!priceText) {
-      throw new Error("Price text not found"); // Throw error if no text
-    }
-
-    // Extract currency symbol (e.g., $)
-    const currencyMatch = priceText.match(/^[^\d]+/);
-    if (!currencyMatch) {
-      throw new Error(`Currency not found in price "${priceText}"`); // Throw if currency missing
-    }
-
-    // Extract numeric value (e.g., 9.99)
-    const numberMatch = priceText.match(/[\d,.]+/);
-    if (!numberMatch) {
-      throw new Error(`Numeric value not found in price "${priceText}"`); // Throw if number missing
-    }
-
-    // Assert currency separately
-    expect(currencyMatch[0]).toBe(expectedCurrency);
-
-    // Assert numeric value separately
-    expect(parseFloat(numberMatch[0].replace(",", ""))).toBe(expectedValue);
+    // Use Helpers to validate numeric price and currency symbol
+    this.helpers.priceValidator(priceText, expectedPrice, currencySymbol);
   }
 
-  // Validate if remove item is visible after adding product to the cart
-  public async valiateIfRemoveButtonIsVisible(): Promise<void> {
+  // Validate if "Remove" button is visible
+  async validateIfRemoveButtonIsVisible(): Promise<void> {
     await expect(this.removeButton).toBeVisible();
   }
 
