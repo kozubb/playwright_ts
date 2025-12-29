@@ -15,9 +15,19 @@ This project demonstrates an end-to-end (E2E) testing framework using **Playwrig
 
 ### **Frontend Tests**:
 
-- User login
-- User registration
-- End-to-end product purchase process
+1. **QA Brains (Current site under maintenance)**
+
+   - Existing frontend tests for the QA Brains website.
+   - Currently **skipped** due to site being in maintenance mode.
+   - Includes login, registration, and product purchase flows.
+
+2. **Sauce Demo**
+   - Frontend tests for [Sauce Demo](https://www.saucedemo.com) website.
+   - Covers:
+     - User login
+     - Adding products to the cart
+     - Complete order placement process (checkout and confirmation)
+   - Implemented using **Page Object Pattern** for maintainability and clarity.
 
 ### **API Tests**:
 
