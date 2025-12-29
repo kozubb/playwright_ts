@@ -65,7 +65,6 @@ export default class Helpers {
     const expectedPriceAsNumberFixed = +expectedPriceValue.toFixed(2);
     const priceWithoutLetters =
       this.removeLettersColonAndSpace(currentPriceElement);
-    console.log(priceWithoutLetters);
     const price = this.changeCommaSign(
       this.removeCurrencySymbol(priceWithoutLetters)
     );
