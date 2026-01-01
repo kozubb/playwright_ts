@@ -73,7 +73,6 @@ export default class Helpers {
     const currencySymbol = this.removeSpecialChars(
       this.removePrice(currencySymbolWithoutLetters)
     );
-    console.log(price);
 
     // Assert that numeric price matches expected
     expect(price).toBeCloseTo(expectedPriceAsNumberFixed, 2);

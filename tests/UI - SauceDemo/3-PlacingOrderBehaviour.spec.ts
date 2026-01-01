@@ -5,34 +5,7 @@ import Cart from "../../pages/SauceDemo/Cart";
 import Checkout from "../../pages/SauceDemo/Checkout";
 import Overview from "../../pages/SauceDemo/Overview";
 import ThankYouPage from "../../pages/SauceDemo/ThankYouPage";
-
-// Test data – endpoint, credentials, and products
-const endpoint: string = "https://www.saucedemo.com";
-const username: string = "standard_user"; // Valid username
-const password: string = "secret_sauce"; // Valid password
-
-const productBackpackName = "Sauce Labs Backpack";
-const productBikeLightName = "Sauce Labs Bike Light";
-
-const productBikeLightId = 0;
-const productBackpackId = 4;
-
-const productBackpackPrice = 29.99;
-const productBikeLightPrice = 9.99;
-const currency = "$";
-const tax = 0.08;
-
-const firstNameText = "First Name";
-const expectedFirstName = "Test First Name";
-const lastNameText = "Last Name";
-const expectedLastName = "Test Last Name";
-const zipCodeName = "Zip/Postal Code";
-const expectedZipCodeName = "11111";
-
-const paymentMethod = "SauceCard #31337";
-const deliveryMethod = "Free Pony Express Delivery!";
-
-const thankYouMessage = "Thank you for your order!";
+import testData from "../../testData/SauceDemo/TestData";
 
 // E2E test: Place an order from product listing to Thank You page
 test("Place order", async ({ page }) => {
@@ -45,17 +18,20 @@ test("Place order", async ({ page }) => {
   const thankYou = new ThankYouPage(page);
 
   // Step 2: Log in as standard user
-  await helpers.loginAs({ endpoint, username, password });
-
+  await helpers.loginAs({
+    endpoint: testData.Endpoint,
+    username: testData.Users.StandardUser.Username,
+    password: testData.Users.StandardUser.Password,
+  });
   // Step 3: Verify inventory page is loaded and shopping cart icon is visible
-  await page.waitForURL(`${endpoint}/inventory.html`);
+  await page.waitForURL(`${testData.Endpoint}/inventory.html`);
   await productListing.validateIfCartIsVisible();
 
   // Step 4: Add products from listing page to cart
-  await productListing.pressAddToOrderButton(productBackpackName);
+  await productListing.pressAddToOrderButton(testData.Products.Backpack.Name);
   await productListing.validateShoppingCartAmount("1"); // Validate 1 item in cart
 
-  await productListing.pressAddToOrderButton(productBikeLightName);
+  await productListing.pressAddToOrderButton(testData.Products.BikeLight.Name);
   await productListing.validateShoppingCartAmount("2"); // Validate 2 items in cart
 
   // Step 5: Open cart and validate product details
@@ -63,12 +39,12 @@ test("Place order", async ({ page }) => {
 
   // Validate product titles
   await cart.validateProductTitleInBasket(
-    productBackpackId,
-    productBackpackName
+    testData.Products.Backpack.Id,
+    testData.Products.Backpack.Name
   );
   await cart.validateProductTitleInBasket(
-    productBikeLightId,
-    productBikeLightName
+    testData.Products.BikeLight.Id,
+    testData.Products.BikeLight.Name
   );
 
   // Validate product quantities
@@ -78,41 +54,51 @@ test("Place order", async ({ page }) => {
   // Validate product prices and currency
   await cart.validateProductPriceAndCurrencyInCart(
     0,
-    currency,
-    productBackpackPrice
+    testData.CurrencySymbol,
+    testData.Products.Backpack.Price
   );
   await cart.validateProductPriceAndCurrencyInCart(
     1,
-    currency,
-    productBikeLightPrice
+    testData.CurrencySymbol,
+    testData.Products.BikeLight.Price
   );
 
   // Step 6: Proceed to checkout
   await cart.pressCheckoutButton();
 
   // Step 7: Fill in checkout information
-  await checkout.fillCheckoutInput(firstNameText, expectedFirstName);
-  await checkout.fillCheckoutInput(lastNameText, expectedLastName);
-  await checkout.fillCheckoutInput(zipCodeName, expectedZipCodeName);
+  await checkout.fillCheckoutInput(
+    testData.CheckoutForm.FirstNameText,
+    testData.Users.OrderUser.FirstName
+  );
+  await checkout.fillCheckoutInput(
+    testData.CheckoutForm.LastNameText,
+    testData.Users.OrderUser.LastName
+  );
+  await checkout.fillCheckoutInput(
+    testData.CheckoutForm.ZipcodeText,
+    testData.Users.OrderUser.Zipcode
+  );
   await checkout.pressContinueButton();
 
   // Step 8: Validate overview page details
-  await overview.validatePaymentMethod(paymentMethod); // Payment method
-  await overview.validateDeliveryMethod(deliveryMethod); // Shipping method
+  await overview.validatePaymentMethod(testData.PaymentMethod); // Payment method
+  await overview.validateDeliveryMethod(testData.DeliveryMethod); // Shipping method
   await overview.validateSubtotal(
-    productBackpackPrice + productBikeLightPrice,
-    currency
+    testData.Products.Backpack.Price + testData.Products.BikeLight.Price,
+    testData.CurrencySymbol
   ); // Subtotal
   await overview.validateTotalPrice(
-    (productBackpackPrice + productBikeLightPrice) * tax +
-      productBackpackPrice +
-      productBikeLightPrice,
-    currency
-  ); // Total price including tax
+    (testData.Products.Backpack.Price + testData.Products.BikeLight.Price) *
+      testData.Tax +
+      testData.Products.Backpack.Price +
+      testData.Products.BikeLight.Price,
+    testData.CurrencySymbol
+  ); // Total price including testData.Tax
 
   // Step 9: Finish the order
   await overview.pressFinishButton();
 
   // Step 10: Validate Thank You page message
-  await thankYou.validateThankYouText(thankYouMessage);
+  await thankYou.validateThankYouText(testData.Messages.ThankYouMessage);
 });
