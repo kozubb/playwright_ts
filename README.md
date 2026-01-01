@@ -44,9 +44,11 @@ This project demonstrates an end-to-end (E2E) testing framework using **Playwrig
 
 ### CI/CD with GitHub Actions
 
-- Full integration of Playwright tests within GitHub Actions
-- Test reports available in **HTML** and **JUnit** formats
-- Results displayed in **GitHub Actions summary** and as **artifacts** (HTML and XML)
+- **Automated Workflow**: Full integration of Playwright tests triggered on every push and pull request.
+- **Reporting & Observability**:
+  - Automatic generation of **Playwright HTML Reports**.
+  - **Artifact Management**: Reports in HTML and XML files are stored as GitHub Actions artifacts for easy debugging.
+  - **Direct Summary**: Test results are visible directly in the GitHub Actions summary for quick feedback.
 
 ### Test Documentation
 
