@@ -49,44 +49,6 @@ This project demonstrates an end-to-end (E2E) testing framework using **Playwrig
 
 ---
 
-## How to Run Tests
-
-### Prerequisites
-
-- Node.js (recommended LTS version)
-- npm (comes with Node.js)
-
-### Install Dependencies
-
-npm install
-
-Installs all required packages for running the Playwright tests.
-
-### Run Playwright Tests
-
-You can run tests either in interactive mode (headed) or in headless mode (for CI/CD).
-
-**Open Playwright Test Runner (headed)**
-
-npx playwright test --ui
-
-- Opens the Playwright Test Runner UI
-- Allows running tests interactively
-
-**Run Playwright tests headlessly**
-
-npx playwright test
-
-- Runs all tests headlessly
-- Recommended for CI/CD pipelines
-
-### NPM Scripts
-
-- `"pw:test:headed": "npx playwright test --ui"`
-- `"pw:test:headless": "npx playwright test"`
-
----
-
 ## Test Strategy
 
 The project follows a balanced testing pyramid approach.
@@ -152,3 +114,41 @@ The project follows a balanced testing pyramid approach.
 
 - Implement **visual regression tests** to detect UI changes automatically
 - Implement **accessibility (a11y) tests** to ensure compliance with accessibility standards
+
+---
+
+## How to Run Tests
+
+### Prerequisites
+
+- Node.js (recommended LTS version)
+- npm (comes with Node.js)
+
+### Install Dependencies
+
+npm install
+
+Installs all required packages for running the Playwright tests.
+
+### Run Playwright Tests
+
+You can run tests either in interactive mode (headed) or in headless mode (for CI/CD).
+
+**Open Playwright Test Runner (headed)**
+
+npx playwright test --ui
+
+- Opens the Playwright Test Runner UI
+- Allows running tests interactively
+
+**Run Playwright tests headlessly**
+
+npx playwright test
+
+- Runs all tests headlessly
+- Recommended for CI/CD pipelines
+
+### NPM Scripts
+
+- `"pw:test:headed": "npx playwright test --ui"`
+- `"pw:test:headless": "npx playwright test"`
