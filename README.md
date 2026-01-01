@@ -6,6 +6,7 @@ This project demonstrates an end-to-end (E2E) testing framework using **Playwrig
 
 - **Frontend testing**: login, registration, and product purchase process.
 - **API testing**: testing GET, POST, PUT, and DELETE requests.
+- **Contract Testing with Zod**: testing GET requests using Zod library.
 - **Cross-browser testing**: tests are run on **Chrome**.
 - **CI/CD pipeline**: integrated fully with **GitHub Actions**, including test execution and reporting.
 
@@ -32,6 +33,10 @@ This project demonstrates an end-to-end (E2E) testing framework using **Playwrig
 ### API Tests
 
 - GET, POST, PUT, and DELETE requests
+
+### Conract API Tests
+
+- GET requests using Zod library
 
 ### Cross-Browser Testing
 
@@ -66,6 +71,12 @@ The project follows a balanced testing pyramid approach.
 - Used to validate backend logic independently
 - Reduce the need for excessive E2E coverage
 
+### API Contract Testing
+
+- **Contract Testing with Zod**:
+  - Implementation of **Schema Validation** to ensure API responses match expected structures.
+  - Validating data types, mandatory fields, and nested objects (e.g., address and company details).
+
 ---
 
 ## Design Decisions
@@ -89,9 +100,18 @@ The project follows a balanced testing pyramid approach.
 ### Chrome-only Execution
 
 - Chrome is selected as the primary browser because:
+
   - It reflects the most common real-user environment
   - Reduces test flakiness
   - Simplifies CI configuration
+
+  ### Contract Testing with Zod
+
+- Instead of just checking status codes, the project uses **Zod** for schema validation.
+- **Why Zod?**
+  - **Type Safety**: Automatically infers TypeScript types from schemas.
+  - **Resilience**: Tests fail immediately if the backend changes a field name or data type, even if the status code is still 200.
+  - **Detailed Error Reporting**: Provides clear information on which exact field in a deeply nested JSON failed validation.
 
 ---
 
