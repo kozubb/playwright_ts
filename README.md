@@ -39,10 +39,10 @@ This project demonstrates an end-to-end (E2E) testing framework using **Playwrig
 
 - GET requests using Zod library
 
-### Accessibility (a11y) Audits\*\*:
+### Accessibility (a11y) Audits:
 
-    - Automated scans using `@axe-core/playwright` to ensure **WCAG 2.1** compliance.
-    - Custom logic to generate visual **HTML reports** whenever violations are detected.
+- Automated scans using `@axe-core/playwright` to ensure **WCAG 2.1** compliance.
+- Custom logic to generate visual **HTML reports** whenever violations are detected.
 
 ### Cross-Browser Testing
 
@@ -86,9 +86,9 @@ The project follows a balanced testing pyramid approach.
   - Implementation of **Schema Validation** to ensure API responses match expected structures.
   - Validating data types, mandatory fields, and nested objects (e.g., address and company details).
 
-  ## ♿ Accessibility Testing (a11y)
+## ♿ Accessibility Testing (a11y)
 
-  This project integrates automated accessibility audits to ensure compliance with **WCAG 2.1** standards:
+This project integrates automated accessibility audits to ensure compliance with **WCAG 2.1** standards:
 
 - **Engine:** `@axe-core/playwright`
 - Build can be run manually in Github Actions
@@ -98,13 +98,13 @@ The project follows a balanced testing pyramid approach.
 
 ### How to run:
 
-# Run only accessibility tests
+**Run only accessibility tests**
 
 npx playwright test --grep @a11y
 
-# View the results
+**View the results**
 
-# Open /axe-reports/accessibility-report.html in your browser
+Open /axe-reports/accessibility-report.html in your browser
 
 ---
 
