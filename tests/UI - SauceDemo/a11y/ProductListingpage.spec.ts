@@ -2,10 +2,18 @@ import { test, expect } from '@playwright/test'
 import AxeBuilder from '@axe-core/playwright'
 import { createHtmlReport } from 'axe-html-reporter'
 import fs from 'fs'
+import LoginPage from '../../../pages/SauceDemo/Login'
 import testData from '../../../testData/SauceDemo/TestData'
 
-test('Accessibility Audit - SauceDemo - Login Page @a11y', async ({ page }) => {
+test('Accessibility Audit - SauceDemo - Product Listing Page @a11y', async ({ page }) => {
+	const login = new LoginPage(page)
+
 	await page.goto(testData.Endpoint)
+	await login.fillInput('username', testData.Users.StandardUser.Username)
+	await login.fillInput('password', testData.Users.StandardUser.Password)
+	await login.pressLoginButton()
+	await page.waitForURL(`${testData.Endpoint}/inventory.html`)
+
 	const results = await new AxeBuilder({ page }).analyze()
 
 	// We use a simple relative path.
