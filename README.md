@@ -134,7 +134,7 @@ The project follows a balanced testing pyramid approach.
 
 ## In progress
 
-- Implement **accessibility (a11y) tests** to ensure compliance with accessibility standards
+- Implement **accessibility (a11y) tests** to ensure compliance with accessibility standards WCAG - it will be done using axe library for playwright
 
 ---
 
