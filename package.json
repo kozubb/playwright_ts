@@ -12,7 +12,9 @@
     "@types/node": "^20.11.19"
   },
   "dependencies": {
+    "@axe-core/playwright": "^4.11.0",
     "@estruyf/github-actions-reporter": "^1.10.0",
+    "axe-html-reporter": "^2.2.11",
     "playwright": "^1.57.0",
     "zod": "^4.3.4"
   }

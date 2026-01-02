@@ -132,10 +132,15 @@ The project follows a balanced testing pyramid approach.
 
 ---
 
+## In progress
+
+- Implement **accessibility (a11y) tests** to ensure compliance with accessibility standards
+
+---
+
 ## Future Goals
 
 - Implement **visual regression tests** to detect UI changes automatically
-- Implement **accessibility (a11y) tests** to ensure compliance with accessibility standards
 
 ---
 
@@ -174,3 +179,9 @@ npx playwright test
 
 - `"pw:test:headed": "npx playwright test --ui"`
 - `"pw:test:headless": "npx playwright test"`
+
+### Check results visually
+
+After running tests you can open html report using command:
+
+npx playwright show-report playwright-report/html
