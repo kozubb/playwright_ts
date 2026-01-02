@@ -31,7 +31,7 @@ test('Accessibility Audit - SauceDemo - Product Listing Page @a11y', async ({ pa
 			options: {
 				projectKey: 'SauceDemo',
 				outputDir: reportDir,
-				reportFileName: 'accessibility-report.html'
+				reportFileName: 'accessibility-report-plp.html'
 			}
 		})
 

@@ -23,7 +23,7 @@ test('Accessibility Audit - SauceDemo - Login Page @a11y', async ({ page }) => {
 			options: {
 				projectKey: 'SauceDemo',
 				outputDir: reportDir,
-				reportFileName: 'accessibility-report.html'
+				reportFileName: 'accessibility-report-login.html'
 			}
 		})
 
