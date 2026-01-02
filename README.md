@@ -7,6 +7,7 @@ This project demonstrates an end-to-end (E2E) testing framework using **Playwrig
 - **Frontend testing**: login, registration, and product purchase process.
 - **API testing**: testing GET, POST, PUT, and DELETE requests.
 - **Contract Testing with Zod**: testing GET requests using Zod library.
+- **Accessibility (a11y) Audits**: tests are using `@axe-core/playwright` library to to ensure **WCAG 2.1** compliance and generate reports
 - **Cross-browser testing**: tests are run on **Chrome**.
 - **CI/CD pipeline**: integrated fully with **GitHub Actions**, including test execution and reporting.
 
@@ -37,6 +38,11 @@ This project demonstrates an end-to-end (E2E) testing framework using **Playwrig
 ### Conract API Tests
 
 - GET requests using Zod library
+
+### Accessibility (a11y) Audits\*\*:
+
+    - Automated scans using `@axe-core/playwright` to ensure **WCAG 2.1** compliance.
+    - Custom logic to generate visual **HTML reports** whenever violations are detected.
 
 ### Cross-Browser Testing
 
@@ -76,8 +82,29 @@ The project follows a balanced testing pyramid approach.
 ### API Contract Testing
 
 - **Contract Testing with Zod**:
+
   - Implementation of **Schema Validation** to ensure API responses match expected structures.
   - Validating data types, mandatory fields, and nested objects (e.g., address and company details).
+
+  ## ♿ Accessibility Testing (a11y)
+
+  This project integrates automated accessibility audits to ensure compliance with **WCAG 2.1** standards:
+
+- **Engine:** `@axe-core/playwright`
+- Build can be run manually in Github Actions
+- **Reporting:** - If violations are found, a detailed **HTML Report** is generated.
+  - Reports are saved as **GitHub Action Artifacts** for 14 days.
+  - Custom console logging provides immediate feedback on the number of violations.
+
+### How to run:
+
+# Run only accessibility tests
+
+npx playwright test --grep @a11y
+
+# View the results
+
+# Open /axe-reports/accessibility-report.html in your browser
 
 ---
 
