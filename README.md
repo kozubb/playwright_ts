@@ -7,7 +7,7 @@ This project demonstrates an end-to-end (E2E) testing framework using **Playwrig
 - **Frontend testing**: login, registration, and product purchase process.
 - **API testing**: testing GET, POST, PUT, and DELETE requests.
 - **Contract Testing with Zod**: testing GET requests using Zod library.
-- **Accessibility (a11y) Audits**: tests are using `@axe-core/playwright` library to to ensure **WCAG 2.1** compliance and generate reports
+- **Accessibility (a11y) Audits**: tests are using `@axe-core/playwright` library to ensure **WCAG 2.1** compliance and generate reports
 - **Cross-browser testing**: tests are run on **Chrome**.
 - **CI/CD pipeline**: integrated fully with **GitHub Actions**, including test execution and reporting.
 
@@ -95,16 +95,6 @@ This project integrates automated accessibility audits to ensure compliance with
 - **Reporting:** - If violations are found, a detailed **HTML Report** is generated.
   - Reports are saved as **GitHub Action Artifacts** for 14 days.
   - Custom console logging provides immediate feedback on the number of violations.
-
-### How to run:
-
-**Run only accessibility tests**
-
-npx playwright test --grep @a11y
-
-**View the results**
-
-Open /axe-reports/accessibility-report.html in your browser
 
 ---
 
@@ -197,7 +187,7 @@ npx playwright test --ui
 
 **Run Playwright tests headlessly**
 
-npx playwright test
+npx playwright test --grep-invert @a11y
 
 - Runs all tests headlessly
 - Recommended for CI/CD pipelines
@@ -212,3 +202,13 @@ npx playwright test
 After running tests you can open html report using command:
 
 npx playwright show-report playwright-report/html
+
+### How to Run accessibility tests:
+
+**Run only accessibility tests**
+
+npx playwright test --grep @a11y
+
+**View the results**
+
+Open /axe-reports/accessibility-report.html in your browser
