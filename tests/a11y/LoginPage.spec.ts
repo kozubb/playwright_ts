@@ -2,7 +2,7 @@ import { test, expect } from '@playwright/test'
 import AxeBuilder from '@axe-core/playwright'
 import { createHtmlReport } from 'axe-html-reporter'
 import fs from 'fs'
-import testData from '../../../testData/SauceDemo/TestData'
+import testData from '../../testData/SauceDemo/TestData'
 
 test('Accessibility Audit - SauceDemo - Login Page @a11y', async ({ page }) => {
 	await page.goto(testData.Endpoint)

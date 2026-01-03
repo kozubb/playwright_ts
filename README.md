@@ -43,6 +43,7 @@ This project demonstrates an end-to-end (E2E) testing framework using **Playwrig
 
 - Automated scans using `@axe-core/playwright` to ensure **WCAG 2.1** compliance.
 - Custom logic to generate visual **HTML reports** whenever violations are detected.
+- Navigation using keyboard keys
 
 ### Cross-Browser Testing
 
@@ -91,6 +92,8 @@ The project follows a balanced testing pyramid approach.
 This project integrates automated accessibility audits to ensure compliance with **WCAG 2.1** standards:
 
 - **Engine:** `@axe-core/playwright`
+- Validation of navigation using keyboard navigation to simulate user interactions in accordance with
+  accessibility guidelines and allow moving through the application without a mouse.
 - Build can be run manually in Github Actions
 - **Reporting:** - If violations are found, a detailed **HTML Report** is generated.
   - Reports are saved as **GitHub Action Artifacts** for 14 days.
@@ -212,3 +215,6 @@ npx playwright test --grep @a11y
 **View the results**
 
 Open /axe-reports/accessibility-report.html in your browser
+
+Open html report using command:
+npx playwright show-report playwright-report/html

@@ -20,6 +20,9 @@ jobs:
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps chromium
 
+      - name: Create report folder
+        run: mkdir -p playwright-report
+
       - name: Run Accessibility Tests
         run: npx playwright test --grep @a11y
 
@@ -29,4 +32,12 @@ jobs:
         with:
           name: accessibility-report
           path: axe-reports/
+          retention-days: 14
+
+      - name: Upload test artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-test-artifacts
+          path: playwright-report/
           retention-days: 14

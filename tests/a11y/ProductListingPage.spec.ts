@@ -2,8 +2,8 @@ import { test, expect } from '@playwright/test'
 import AxeBuilder from '@axe-core/playwright'
 import { createHtmlReport } from 'axe-html-reporter'
 import fs from 'fs'
-import LoginPage from '../../../pages/SauceDemo/Login'
-import testData from '../../../testData/SauceDemo/TestData'
+import LoginPage from '../../pages/SauceDemo/Login'
+import testData from '../../testData/SauceDemo/TestData'
 
 test('Accessibility Audit - SauceDemo - Product Listing Page @a11y', async ({ page }) => {
 	const login = new LoginPage(page)
