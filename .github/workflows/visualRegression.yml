@@ -6,6 +6,11 @@ on:
   pull_request:
     branches: [main, master]
   workflow_dispatch:
+    inputs:
+      update_snapshots:
+        description: "Generate new snapshots to download?"
+        type: boolean
+        default: false
 
 jobs:
   visual-tests:
@@ -25,7 +30,12 @@ jobs:
         run: npx playwright install --with-deps chromium
 
       - name: Run Visual Tests
-        run: npx playwright test --grep @visual
+        run: |
+          if [ "${{ github.event.inputs.update_snapshots }}" == "true" ]; then
+            npx playwright test --grep @visual --update-snapshots
+          else
+            npx playwright test --grep @visual
+          fi
         env:
           CI: true
 
@@ -37,8 +47,16 @@ jobs:
           path: playwright-report/
           retention-days: 14
 
+      - name: Upload New Snapshots (on manual update)
+        if: github.event.inputs.update_snapshots == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: new-linux-snapshots
+          path: "**/snapshots/*.png"
+          retention-days: 7
+
       - name: Upload Snapshots Diff (on failure)
-        if: failure()
+        if: failure() && github.event.inputs.update_snapshots != 'true'
         uses: actions/upload-artifact@v4
         with:
           name: visual-test-diffs
