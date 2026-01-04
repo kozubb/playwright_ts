@@ -63,7 +63,4 @@ test('Login attempt with locked user, followed by successful login using keyboar
 	// Step 5: Verify that the inventory page is loaded and shopping cart icon is visible
 	await page.waitForURL(`${testData.Endpoint}/inventory.html`)
 	await productListing.validateIfCartIsVisible()
-
-	// Step 6: Navigate to the next element (optional step for adding items to cart)
-	await navigate.navigateToNextElement() // Move to the next element using keyboard
 })
