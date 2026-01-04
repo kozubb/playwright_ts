@@ -1,6 +1,8 @@
 name: Visual Regression
 
 on:
+  push:
+    branches: [main, master]
   pull_request:
     branches: [main, master]
   workflow_dispatch:
@@ -23,7 +25,7 @@ jobs:
         run: npx playwright install --with-deps chromium
 
       - name: Run Visual Tests
-        run: npx playwright test --grep @visual --update-snapshots
+        run: npx playwright test --grep @visual
         env:
           CI: true
 
