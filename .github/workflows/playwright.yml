@@ -37,7 +37,7 @@ jobs:
         run: mkdir -p playwright-report
 
       - name: Run Playwright tests
-        run: npx playwright test --grep-invert @a11y
+        run: npx playwright test --grep-invert "@visual|@a11y"
 
       - name: Upload test artifacts
         if: always()

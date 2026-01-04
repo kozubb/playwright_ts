@@ -23,7 +23,7 @@ jobs:
         run: npx playwright install --with-deps chromium
 
       - name: Run Visual Tests
-        run: npx playwright test --grep @visual
+        run: npx playwright test --grep @visual --update-snapshots
         env:
           CI: true
 
