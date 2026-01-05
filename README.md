@@ -46,7 +46,7 @@ This project demonstrates an end-to-end (E2E) testing framework using **Playwrig
 - Custom logic to generate visual **HTML reports** whenever violations are detected.
 - Navigation using keyboard keys
 
-## Visual Regression Testing
+### Visual Regression Testing
 
 - Automated UI comparison for [Sauce Demo](https://www.saucedemo.com).
 - Captures and compares screenshots of critical steps:
@@ -111,7 +111,7 @@ This project integrates automated accessibility audits to ensure compliance with
   - Reports are saved as **GitHub Action Artifacts** for 14 days.
   - Custom console logging provides immediate feedback on the number of violations.
 
-  ## 📸 Visual Regression Testing
+## 📸 Visual Regression Testing
 
 - **Goal**: Detect pixel-level layout shifts, styling bugs, and broken assets using @visual tag.
 - **Pixel Perfection**: No masking used to ensure 100% accuracy of product images and prices.
