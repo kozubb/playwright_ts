@@ -18,11 +18,11 @@ This project demonstrates an end-to-end (E2E) testing framework using **Playwrig
 
 ### Frontend Tests
 
-1. **QA Brains (Current site under maintenance)**
+1. **QA Brains**
 
    - Existing frontend tests for the QA Brains website.
-   - Currently **skipped** due to site being in maintenance mode.
    - Includes login, registration, and product purchase flows.
+   - Implemented using **Page Object Pattern** for maintainability and clarity.
 
 2. **Sauce Demo**
    - Frontend tests for [Sauce Demo](https://www.saucedemo.com) website.
@@ -147,7 +147,7 @@ This project integrates automated accessibility audits to ensure compliance with
   - Reduces test flakiness
   - Simplifies CI configuration
 
-  ### Contract Testing with Zod
+### Contract Testing with Zod
 
 - Instead of just checking status codes, the project uses **Zod** for schema validation.
 - **Why Zod?**
