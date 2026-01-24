@@ -27,7 +27,7 @@ export default class Overview {
 
 	// #region Actions
 
-	async finishOrder() {
+	async finishOrder(): Promise<void> {
 		await this.page.getByRole('button', { name: /finish/i }).click()
 		await this.page.waitForURL(/checkout-complete/)
 	}

@@ -9,7 +9,7 @@ export default class ThankYouPage {
 
 	// #region Validations
 
-	async validateThankYouMessage(message: string) {
+	async validateThankYouMessage(message: string): Promise<void> {
 		await expect(this.page.getByRole('heading', { name: /thank you for your order!/i })).toHaveText(message)
 	}
 

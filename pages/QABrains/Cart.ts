@@ -12,7 +12,7 @@ export default class Cart {
 
 	// #region Actions
 
-	async checkout() {
+	async checkout(): Promise<void> {
 		await this.page.getByRole('button', { name: /checkout/i }).click()
 		await this.page.waitForURL(/checkout-info/)
 	}

@@ -9,7 +9,7 @@ export default class ProductListing {
 
 	// #region Actions
 
-	async addProductToCart(productName: string) {
+	async addProductToCart(productName: string): Promise<void> {
 		const products = this.page.locator('.text-lg.block')
 		const buttons = this.page.locator('button', { hasText: /add to cart/i })
 
@@ -23,7 +23,7 @@ export default class ProductListing {
 		}
 	}
 
-	async openCart() {
+	async openCart(): Promise<void> {
 		const basketAmount = this.page.locator('.bg-qa-clr')
 		await basketAmount.click()
 	}
