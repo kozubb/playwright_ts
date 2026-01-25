@@ -5,6 +5,7 @@
 This project demonstrates an end-to-end (E2E) testing framework using **Playwright** with **TypeScript**. It includes automated tests for:
 
 - **Frontend testing**: login, registration, and product purchase process.
+- **API + UI mixed testing**: login via api, injecting token to cookies and performing ui flow.
 - **API testing**: testing GET, POST, PUT, and DELETE requests.
 - **Contract Testing with Zod**: testing GET requests using Zod library.
 - **Accessibility (a11y) Audits**: tests are using `@axe-core/playwright` library to ensure **WCAG 2.1** compliance and generate reports.
@@ -19,7 +20,6 @@ This project demonstrates an end-to-end (E2E) testing framework using **Playwrig
 ### Frontend Tests
 
 1. **QA Brains**
-
    - Existing frontend tests for the QA Brains website.
    - Includes login, registration, and product purchase flows.
    - Implemented using **Page Object Pattern** for maintainability and clarity.
@@ -32,11 +32,19 @@ This project demonstrates an end-to-end (E2E) testing framework using **Playwrig
      - Complete order placement process (checkout and confirmation)
    - Implemented using **Page Object Pattern** for maintainability and clarity.
 
+### API + UI Mixed Tests
+
+- This test demonstrates an end-to-end scenario in the QuickPizza application, covering both API and UI interactions:
+- CSRF Token requested from the backend before any user action.
+- The token is extracted from the Set-Cookie header to secure subsequent API requests.
+- User Authentication via API - the returned userToken is added to browser cookies to simulate an authenticated session.
+- UI Interactions as a logged in user
+
 ### API Tests
 
 - GET, POST, PUT, and DELETE requests
 
-### Conract API Tests
+### Contract API Tests
 
 - GET requests using Zod library
 
@@ -85,6 +93,13 @@ The project follows a balanced testing pyramid approach.
 - Avoid over-testing UI details
 - Written with stability and readability in mind
 
+### API + UI Mixed Test
+
+- Automates the pizza rating flow from login to UI interaction
+- Login via API for faster and more reliable authentication
+- Uses CSRF token and qp_user_token for authenticated requests
+- Ensures stable end-to-end coverage for a critical user flow
+
 ### API Tests
 
 - Faster and more reliable than UI tests
@@ -94,7 +109,6 @@ The project follows a balanced testing pyramid approach.
 ### API Contract Testing
 
 - **Contract Testing with Zod**:
-
   - Implementation of **Schema Validation** to ensure API responses match expected structures.
   - Validating data types, mandatory fields, and nested objects (e.g., address and company details).
 
@@ -107,7 +121,6 @@ This project integrates automated accessibility audits to ensure compliance with
   accessibility guidelines and allow moving through the application without a mouse.
 - Build can be run manually in Github Actions
 - **Reporting:** - If violations are found, a detailed **HTML Report** is generated.
-
   - Reports are saved as **GitHub Action Artifacts** for 14 days.
   - Custom console logging provides immediate feedback on the number of violations.
 
@@ -142,7 +155,6 @@ This project integrates automated accessibility audits to ensure compliance with
 ### Chrome-only Execution
 
 - Chrome is selected as the primary browser because:
-
   - It reflects the most common real-user environment
   - Reduces test flakiness
   - Simplifies CI configuration
