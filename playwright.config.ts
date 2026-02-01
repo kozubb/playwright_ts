@@ -29,6 +29,7 @@ export default defineConfig({
 		['@estruyf/github-actions-reporter', { useDetails: true }]
 	],
 	use: {
+		viewport: { width: 1280, height: 800 },
 		trace: 'on-first-retry',
 		headless: process.env.CI === 'true' // headless if in CI environment
 	},
