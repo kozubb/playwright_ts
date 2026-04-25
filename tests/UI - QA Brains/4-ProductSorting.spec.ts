@@ -3,7 +3,7 @@ import Helpers from '../../pages/QABrains/Helpers'
 import ProductListing from '../../pages/QABrains/ProductListing'
 import testData from '../../testData/QABrains/TestData'
 
-test('E2E test - place order', async ({ page }) => {
+test('Product sorting on PLP', async ({ page }) => {
 	const helpers = new Helpers(page)
 	const productListing = new ProductListing(page)
 
