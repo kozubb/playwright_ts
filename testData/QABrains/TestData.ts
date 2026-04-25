@@ -30,6 +30,10 @@ export interface TestData {
 
 	Products: {
 		Shoe: Product
+		Shirt: Product
+		TShirt: Product
+		TShirtSkull: Product
+		Sunglasses: Product
 	}
 
 	Messages: {
@@ -44,6 +48,14 @@ export interface TestData {
 		AccountType: string
 		Email: string
 		Password: string
+	}
+
+	SortingOptions: {
+		AZ: string
+		ZA: string
+		PriceAsc: string
+		PriceDesc: string
+		Default: string
 	}
 }
 
@@ -72,6 +84,26 @@ const testData: TestData = {
 			Name: 'Sample Shoe Name',
 			Id: 2,
 			Price: 89.0
+		},
+		Shirt: {
+			Name: 'Sample Shirt Name',
+			Id: 1,
+			Price: 49.99
+		},
+		TShirt: {
+			Name: 'Sample T-Shirt Name',
+			Id: 9,
+			Price: 56.45
+		},
+		TShirtSkull: {
+			Name: 'Sample T-Shirt Name',
+			Id: 5,
+			Price: 45.0
+		},
+		Sunglasses: {
+			Name: 'Sample Sunglass Name',
+			Id: 8,
+			Price: 256.45
 		}
 	},
 
@@ -87,6 +119,13 @@ const testData: TestData = {
 		AccountType: 'Private Job',
 		Email: 'test@test.com',
 		Password: 'Test123!'
+	},
+	SortingOptions: {
+		AZ: 'A to Z (Ascending)',
+		ZA: 'Z to A (Descending)',
+		PriceAsc: 'Low to High (Price)',
+		PriceDesc: 'High to Low (Price)',
+		Default: 'Select...'
 	}
 }
 
