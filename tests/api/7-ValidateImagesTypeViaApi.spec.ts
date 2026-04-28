@@ -30,10 +30,17 @@ test('GET image jpg with specific dimensions', async ({ request }) => {
 	expect(responseImage.headers()['content-type']).toBe(`${pathImage}/${jpegType}`)
 
 	const responseBuffer = await responseImage.body()
+	const length = responseBuffer.length
 
-	expect(responseBuffer.length).toBeGreaterThan(0)
-	const isJpeg = responseBuffer[0] === 0xff && responseBuffer[1] === 0xd8 && responseBuffer[2] === 0xff
-	expect(isJpeg).toBeTruthy()
+	expect(length).toBeGreaterThan(4)
+
+	const startsWithJpegSignature =
+		responseBuffer[0] === 0xff && responseBuffer[1] === 0xd8 && responseBuffer[2] === 0xff
+
+	const endsWithJpegSignature = responseBuffer[length - 2] === 0xff && responseBuffer[length - 1] === 0xd9
+
+	expect(startsWithJpegSignature).toBe(true)
+	expect(endsWithJpegSignature).toBe(true)
 })
 
 test('GET image - invalid type - 500 error', async ({ request }) => {
