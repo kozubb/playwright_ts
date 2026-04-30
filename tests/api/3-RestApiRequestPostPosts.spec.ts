@@ -1,11 +1,12 @@
-import { test, expect, request } from "@playwright/test";
+import { test, expect } from "@playwright/test";
+import { PostsDto } from "./Payload.dto";
 
 // Test for validating the POST request to create a new post via an API (jsonplaceholder.typicode.com)
 test("POST Request to Create Post", async ({ request }) => {
   // Test data initialization
   const restApiUrl: string = "https://jsonplaceholder.typicode.com/";
   const path: string = "posts";
-  const requestBody = {
+  const requestBody: PostsDto = {
     // Data to be sent in the POST request body
     title: "testTitle",
     body: "bodyTitle",

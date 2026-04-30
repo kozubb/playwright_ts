@@ -1,4 +1,4 @@
-import { test, expect, request } from "@playwright/test";
+import { test, expect } from "@playwright/test";
 
 // Test for validating the DELETE request to remove a post via an API (jsonplaceholder.typicode.com)
 test("DELETE Request to Remove Post", async ({ request }) => {
@@ -6,7 +6,7 @@ test("DELETE Request to Remove Post", async ({ request }) => {
   const restApiUrl: string = "https://jsonplaceholder.typicode.com/";
   const path: string = "posts";
 
-  const postId = 1; // ID of the post to delete (for example, we are deleting post with ID 1)
+  const postId: number = 1; // ID of the post to delete (for example, we are deleting post with ID 1)
 
   // Step 1: Send DELETE request to remove the existing post
   const deletePostResponse = await request.delete(

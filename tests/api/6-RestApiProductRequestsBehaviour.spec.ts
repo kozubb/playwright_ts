@@ -1,4 +1,5 @@
 import { test, expect } from 'playwright/test'
+import { ProductDto } from './Payload.dto'
 
 // Test data initialization
 const restApiUrl: string = 'https://dummyjson.com'
@@ -9,7 +10,7 @@ const productName: string = 'iPhone X'
 const productPrice: number = 899.99
 const notExistedCategory: string = 'fruits'
 const notExistedId: number = 12345678
-const requestBody = {
+const requestBody: Omit<ProductDto, 'taxPercentage'> = {
 	// Data to be sent in the POST request body - add new product
 	title: 'LEGO City Loader',
 	description: 'LEGO City Yellow Wheel Loader',

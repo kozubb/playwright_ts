@@ -1,4 +1,5 @@
-import { test, expect, request } from "@playwright/test";
+import { test, expect } from "@playwright/test";
+import { PostsDto } from "./Payload.dto";
 
 // Test for validating the PUT request to update a post via an API (jsonplaceholder.typicode.com)
 test("PUT Request to Update Post", async ({ request }) => {
@@ -7,7 +8,7 @@ test("PUT Request to Update Post", async ({ request }) => {
   const path: string = "posts";
 
   // Data to be sent in the PUT request body for updating the post
-  const updatedRequestBody = {
+  const updatedRequestBody: PostsDto = {
     title: "updatedTitle",
     body: "updatedBody",
     userId: 1,

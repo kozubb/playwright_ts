@@ -1,4 +1,4 @@
-import { test, expect, request } from "@playwright/test";
+import { test, expect } from "@playwright/test";
 // Test data initialization
 const restApiUrl: string = "https://jsonplaceholder.typicode.com/";
 const path: string = "users";
