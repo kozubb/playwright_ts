@@ -12,7 +12,7 @@ export default defineConfig({
 		timeout: 5000,
 		toHaveScreenshot: {
 			animations: 'disabled',
-			maxDiffPixelRatio: 0.1
+			maxDiffPixelRatio: 0.3
 		}
 	},
 

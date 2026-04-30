@@ -1,5 +1,3 @@
-export type RegistersDto = RegisterDto[];
-
 export interface RegisterDto {
     name: string;
     country: string;
