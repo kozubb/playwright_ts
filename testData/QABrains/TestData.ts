@@ -40,6 +40,9 @@ export interface TestData {
 		LoginSuccessMessage: string
 		RegisterSuccessfulMessage: string
 		ThankYouMessage: string
+		ToastAddedFavourite: string
+		ToastRemovedFavourite: string
+		NoFavoriteItems: string
 	}
 
 	RegisterForm: {
@@ -110,7 +113,10 @@ const testData: TestData = {
 	Messages: {
 		LoginSuccessMessage: 'Login Successful',
 		RegisterSuccessfulMessage: 'Registration Successful',
-		ThankYouMessage: 'Thank you for your order!'
+		ThankYouMessage: 'Thank you for your order!',
+		ToastAddedFavourite: 'Added to favorites',
+		ToastRemovedFavourite: 'Removed from favorites',
+		NoFavoriteItems: 'You have no favorite products'
 	},
 
 	RegisterForm: {
