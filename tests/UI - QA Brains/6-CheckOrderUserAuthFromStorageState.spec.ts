@@ -1,0 +1,14 @@
+import { test } from '../../Fixtures/LoginFixtures'
+import Header from '../../pages/QABrains/Header'
+import testData from '../../testData/QABrains/TestData'
+
+test.use({
+	storageState: 'storageStates/orderUser.json'
+})
+// Verify auth from session storage for order user
+test('Check storage state for order user', async ({ page }) => {
+	const header = new Header(page)
+	await page.goto(`${testData.Endpoint}ecommerce/login`)
+
+	await header.validateUserName(testData.Users.OrderUser.Username)
+})

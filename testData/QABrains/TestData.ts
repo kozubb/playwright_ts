@@ -26,6 +26,7 @@ export interface TestData {
 	Users: {
 		SuccessUser: SuccessUser
 		OrderUser: OrderUser
+		PracticeUser: Omit<SuccessUser, 'IncorrectPassword'>
 	}
 
 	Products: {
@@ -79,6 +80,10 @@ const testData: TestData = {
 			FirstName: 'TestName',
 			LastName: 'TestLastName',
 			Zipcode: 1207
+		},
+		PracticeUser: {
+			Username: 'practice@qabrains.com',
+			Password: 'Password123'
 		}
 	},
 
