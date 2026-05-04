@@ -1,4 +1,4 @@
-export interface SuccessUser {
+export interface UserCredentials {
 	Username: string
 	Password: string
 	IncorrectPassword: string
@@ -24,9 +24,9 @@ export interface TestData {
 	DeliveryPrice: number
 
 	Users: {
-		SuccessUser: SuccessUser
+		SuccessUser: UserCredentials
 		OrderUser: OrderUser
-		PracticeUser: Omit<SuccessUser, 'IncorrectPassword'>
+		PracticeUser: Omit<UserCredentials, 'IncorrectPassword'>
 	}
 
 	Products: {
