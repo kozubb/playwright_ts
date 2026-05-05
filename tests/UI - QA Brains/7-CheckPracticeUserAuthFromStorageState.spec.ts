@@ -1,4 +1,4 @@
-import { test } from '../../Fixtures/LoginFixtures'
+import { test } from '@playwright/test'
 import Header from '../../pages/QABrains/Header'
 import testData from '../../testData/QABrains/TestData'
 
