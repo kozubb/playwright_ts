@@ -18,6 +18,13 @@ export interface Product {
 	Price: number
 }
 
+export interface FooterCategoryData {
+	id: number
+	name: string
+	slug: string
+	is_featured: true
+}
+
 export interface TestData {
 	Endpoint: string
 	CurrencySymbol: string
@@ -60,6 +67,11 @@ export interface TestData {
 		PriceAsc: string
 		PriceDesc: string
 		Default: string
+	}
+
+	FooterCategories: {
+		TestCategory: FooterCategoryData
+		MockCategory: FooterCategoryData
 	}
 }
 
@@ -137,6 +149,20 @@ const testData: TestData = {
 		PriceAsc: 'Low to High (Price)',
 		PriceDesc: 'High to Low (Price)',
 		Default: 'Select...'
+	},
+	FooterCategories: {
+		TestCategory: {
+			id: 1,
+			name: 'Test Category',
+			slug: 'test-category',
+			is_featured: true
+		},
+		MockCategory: {
+			id: 2,
+			name: 'Mock Category',
+			slug: 'mock-category',
+			is_featured: true
+		}
 	}
 }
 

@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test'
-import { RegisterDto } from './registerForm.dto'
+import { RegisterDto } from './Payload.dto'
 import testData from '../../testData/QABrains/TestData'
 import RegisterPage from '../../pages/QABrains/Register'
 

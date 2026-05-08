@@ -8,8 +8,10 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@faker-js/faker": "^10.4.0",
     "@playwright/test": "^1.57.0",
-    "@types/node": "^20.19.39"
+    "@types/node": "^20.19.39",
+    "nock": "^14.0.15"
   },
   "dependencies": {
     "@axe-core/playwright": "^4.11.0",

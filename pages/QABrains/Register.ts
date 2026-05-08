@@ -1,5 +1,5 @@
 import { Page, Locator, expect } from '@playwright/test'
-import { RegisterDto } from '../../tests/UI - QA Brains/registerForm.dto'
+import { RegisterDto } from '../../tests/UI - QA Brains/Payload.dto'
 
 export default class RegisterPage {
 	private page: Page

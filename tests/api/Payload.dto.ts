@@ -20,3 +20,11 @@ export interface LoginDto {
 	password: string
 	expiresInMins?: number
 }
+
+export interface MockedUserDto {
+	firstName: string
+	lastName: string
+	email: string
+	age: number
+	phoneNumber: string
+}
