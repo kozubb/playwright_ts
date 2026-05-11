@@ -6,6 +6,7 @@ export default class Homepage {
 	recommendButton: Locator
 	noThanksButton: Locator
 	ratingMessage: Locator
+	recommendationsText: Locator
 
 	// Constructor to initialize the Page instance
 	public constructor(page: Page) {
@@ -14,6 +15,7 @@ export default class Homepage {
 		this.recommendButton = this.page.getByRole('button', { name: /love it!/i })
 		this.noThanksButton = this.page.getByRole('button', { name: /no thanks/i })
 		this.ratingMessage = this.page.locator('#rate-result')
+		this.recommendationsText = this.page.locator('#recommendations')
 	}
 
 	// #region Actions on UI elements
@@ -45,6 +47,10 @@ export default class Homepage {
 	// Check message after rating
 	public async validateRatingMessage(expectedText: string): Promise<void> {
 		await expect(this.ratingMessage).toHaveText(expectedText)
+	}
+
+	public async validateIfGeneratedPizzaContainsSpecificText(expectedText: string): Promise<void> {
+		await expect(this.recommendationsText).toContainText(expectedText)
 	}
 
 	// #endregion
