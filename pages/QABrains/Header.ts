@@ -32,5 +32,9 @@ export default class Header {
 		await expect(this.userName).toHaveText(userName)
 	}
 
+	async validateUserNameVisibility(): Promise<void> {
+		await expect(this.userName).toBeVisible()
+	}
+
 	// #endregion
 }

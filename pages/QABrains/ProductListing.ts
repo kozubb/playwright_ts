@@ -44,6 +44,7 @@ export default class ProductListing {
 
 	async pressSortingOptionByName(optionName: string): Promise<void> {
 		await this.page.getByRole('option', { name: optionName }).click()
+		await this.page.waitForResponse(res => res.url().includes('https://practice.qabrains.com/ecommerce?order_by'))
 	}
 
 	async pressFavouriteIconOnProduct(productName: string): Promise<void> {

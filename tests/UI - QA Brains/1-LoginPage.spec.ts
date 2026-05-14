@@ -7,7 +7,7 @@ test('Login into account', async ({ page }) => {
 
 	// Wait for network response after logout
 	const responsePromise = page.waitForResponse(
-		response => response.url().includes('/?_rsc') && response.status() === 200
+		response => response.url().includes('rsc') && response.status() === 200
 	)
 
 	// Step 1: Open login page

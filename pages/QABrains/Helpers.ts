@@ -20,6 +20,8 @@ export default class Helpers {
 		await loginPage.fillPassword(password)
 		await loginPage.pressLoginButton()
 
+		await this.page.waitForRequest('https://admin.qabrains.com/api/v1/categories')
+
 		await expect(this.page.locator('.user-name')).toHaveText(username) // Verify the email is shown in the user name element
 
 		return this

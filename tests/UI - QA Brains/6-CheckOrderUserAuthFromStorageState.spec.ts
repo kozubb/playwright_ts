@@ -10,5 +10,7 @@ test('Check storage state for order user', async ({ page }) => {
 	const header = new Header(page)
 	await page.goto(`${testData.Endpoint}ecommerce/login`)
 
+	await page.waitForRequest('https://admin.qabrains.com/api/v1/categories')
+
 	await header.validateUserName(testData.Users.OrderUser.Username)
 })
